@@ -2,6 +2,10 @@ jQuery.noConflict();
 
 jQuery(document).ready(function() {	
 
+	if ( Object.hasOwnProperty.call(window, "ActiveXObject") && !window.ActiveXObject ) {
+		jQuery('html').addClass('ie ie11');
+	}
+
 	jQuery("#mobilenav").mmenu({
 	    //Options
 	    searchfield: { //This is for searching through the menu itself (NOT for site search)
@@ -177,13 +181,6 @@ jQuery(window).on('load', function() {
 		}).fail(function(){
 			console.log('twitter.js could not be loaded.');
 			jQuery('#twittercon').css('border', '1px solid red').addClass('hidden');
-		});
-	}
-	//Only load maskedinput.js library if phone or bday field exists.
-	if ( jQuery('.cform7-phone').length || jQuery('.cform7-bday').length ) {
-		jQuery.getScript('js/libs/jquery.maskedinput.js').done(function(){
-		}).fail(function(){
-			console.log('jquery.maskedinput.js could not be loaded.');
 		});
 	}
 	//Only load dataTables library if dataTables table exists.
