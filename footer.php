@@ -79,7 +79,25 @@
 		}
 		</script>
 -->
-
+		
+		<script type="text/javascript">
+			try {
+				(function() {
+					var afterPrint = function() {
+						ga('send', 'event', 'Print Intent', document.location.pathname);
+					};
+					if (window.matchMedia) {
+						var mediaQueryList = window.matchMedia('print');
+						mediaQueryList.addListener(function(mql) {
+							if (!mql.matches)
+							afterPrint();
+						});
+					}
+					window.onafterprint = afterPrint;
+				}());
+			} catch(e) {}
+		</script>
+		
 		<script> //Universal Analytics
 		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
