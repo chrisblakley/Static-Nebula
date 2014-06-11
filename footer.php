@@ -15,8 +15,8 @@
 	<div class="row">
 		<div class="ten columns copyright">
 			<p>
-				<?php date("Y"); ?> &copy; <a href="/"><strong><?php echo $title; ?></strong></a>, all rights reserved.<br/>
-				<a href="https://www.google.com/maps/preview?saddr=My+Location&daddr=760+West+Genesee+Street+Syracuse+NY+13204">760 West Genesee Street, Syracuse, NY 13204</a>
+				<?php date("Y"); ?> &copy; <a href="/"><strong>#</strong></a>, all rights reserved.<br/>
+				<a href="https://www.google.com/maps/place/760+West+Genesee+Street+Syracuse+NY+13204" target="_blank">760 West Genesee Street, Syracuse, NY 13204</a>
 			</p>
 		</div><!--/columns-->
 		<div class="five columns push_one">
@@ -33,7 +33,7 @@
 </div><!--/container-->
 
 		<!--
-<script>
+		<script>
 		window.twttr = (function (d,s,id) {
 		  var t, js, fjs = d.getElementsByTagName(s)[0];
 		  if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
@@ -78,13 +78,14 @@
 		  }
 		}
 		</script>
--->
+		-->
 		
-		<script type="text/javascript">
-			try {
-				(function() {
+		<script>
+			//Capture Print Intent
+			try { (function() {
 					var afterPrint = function() {
-						ga('send', 'event', 'Print Intent', document.location.pathname);
+						ga('send', 'event', 'Print (Intent)', document.location.pathname);
+						Gumby.log('Sending GA event: ' + 'Print (Intent)', document.location.pathname);
 					};
 					if (window.matchMedia) {
 						var mediaQueryList = window.matchMedia('print');
@@ -98,57 +99,80 @@
 			} catch(e) {}
 		</script>
 		
-		<script> //Universal Analytics
-		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-		
-		  ga('create', 'UA-00000000-1', 'domainnamegoeshere.com');
-		  ga('send', 'pageview');
+	
+		<script>
+			//If jQuery has not been intialized, load it from Google's CDN 
+			if (typeof jQuery === 'undefined') {
+			    var script = document.createElement('script');
+			    script.type = "text/javascript";
+			    script.src = "http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"; <?php //@TODO: Always verify this is the desired version of jQuery! ?>
+			    document.getElementsByTagName('head')[0].appendChild(script);
+			}
 		</script>
 		
-		<!-- Grab Google CDN's jQuery, fall back to local if offline -->
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-		<script>window.jQuery || document.write('<script src="js/libs/jquery-1.9.1.min.js"><\/script>')</script>
-		
-		<?php if ( array_key_exists('debug', $_GET) ) : ?>
-		
-			<script src="js/libs/jquery.mmenu.min.all.js"></script>
-			<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-			<script src="//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
-			<script src="js/libs/supplementr.js"></script>
-			<script src="js/libs/cssbs.js"></script>
-			<script src="js/libs/gumby.js"></script>
 				
-				<script src="js/libs/respond.js"></script>
-				
-			<script src="js/libs/gumby.init.js"></script>
-			<script src="js/libs/plugins.js"></script>		
-			<script src="js/main.js"></script>
-					
-		<?php else : ?>
+		<script src="js/libs/jquery.mmenu.min.all.js"></script> <!-- @TODO: Have to make sure this one loads before main.js! Can it be deferred? -->
+		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js" <?php echo $GLOBALS["async"]; ?>></script>
+		<!-- <script src="//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js" <?php echo $GLOBALS["async"]; ?>></script> -->
+		<!-- <script src="js/libs/supplementr.js" <?php echo $GLOBALS["async"]; ?>></script> -->
+		<!--<script src="js/libs/cssbs.js" <?php echo $GLOBALS["async"]; ?>></script>-->
+		<!-- <script src="js/libs/doubletaptogo.js" <?php echo $GLOBALS["defer"]; ?>></script> -->
+		<script <?php echo $GLOBALS["gumby_debug"]; ?> src="js/libs/gumby.min.js" <?php echo $GLOBALS["defer"]; ?>></script>
 		
-			<script src="js/libs/jquery.mmenu.min.all.js"></script>
-			
-			<script>
-				//Asynchronously load javascript files
-				jQuery.getScript("//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js");
-				//jQuery.getScript("//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js");
-				//jQuery.getScript("js/libs/supplementr.js");
-				jQuery.getScript("js/libs/cssbs.js");
-				jQuery.getScript("js/libs/gumby.js");
-							
-				if ( jQuery('html').hasClass('ie8') ) {
-					jQuery.getScript("js/libs/respond.js");
-				}
-						
-				jQuery.getScript("js/libs/gumby.init.js"); //@TODO: Comment out if not using Gumby UI Scripts
-				//jQuery.getScript("js/libs/plugins.js");		
-				jQuery.getScript("js/main.js");
-			</script>
+		<!--[if lt IE 9]>
+			<script src="js/libs/html5shiv.js" <?php echo $GLOBALS["defer"]; ?>></script>
+			<script src="js/libs/respond.js" <?php echo $GLOBALS["defer"]; ?>></script>
+		<![endif]-->
 		
-		<?php endif; ?>
+		<script src="js/main.js" <?php echo $GLOBALS["defer"]; ?>></script>
+		
+		<script>
+			//Check for Youtube Videos
+			if ( jQuery('.youtubeplayer').length ) {
+				var players = {};
+				var tag = document.createElement('script');
+				tag.src = "http://www.youtube.com/iframe_api";
+				var firstScriptTag = document.getElementsByTagName('script')[0];
+				firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+			}
+	
+			function onYouTubeIframeAPIReady(e) {
+				jQuery('iframe.youtubeplayer').each(function(i){
+					var iframeClass = jQuery(this).attr('id');
+					players[iframeClass] = new YT.Player(iframeClass, {
+						events: {
+							'onReady': onPlayerReady,
+							'onStateChange': onPlayerStateChange
+						}
+					});
+				});
+			}
+	
+			//Track Youtube Video Events
+			var pauseFlag = false;
+			function onPlayerReady(e) {
+			   //Do nothing
+			}
+			function onPlayerStateChange(e) {
+			    if (e.data == YT.PlayerState.PLAYING) {
+			        var videoTitle = e['target']['a']['id'].replace(/-/g, ' ');
+			        ga('send', 'event', 'Videos', 'Play', videoTitle);
+			        Gumby.log('Sending GA event: ' + 'Videos', 'Play', videoTitle);
+			        pauseFlag = true;
+			    }
+			    if (e.data == YT.PlayerState.PAUSED && pauseFlag) {
+			        var videoTitle = e['target']['a']['id'].replace(/-/g, ' ');
+			        ga('send', 'event', 'Videos', 'Pause', videoTitle);
+			        Gumby.log('Sending GA event: ' + 'Videos', 'Pause', videoTitle);
+			        pauseFlag = false;
+			    }
+			    if (e.data == YT.PlayerState.ENDED) {
+			        var videoTitle = e['target']['a']['id'].replace(/-/g, ' ');
+			        ga('send', 'event', 'Videos', 'Finished', videoTitle);
+			        Gumby.log('Sending GA event: ' + 'Videos', 'Finished', videoTitle);
+			    }
+			}
+		</script>
 		
 		</div><!--/fullbodywrapper-->
 	</body>

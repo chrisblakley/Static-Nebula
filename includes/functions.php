@@ -1,10 +1,46 @@
 <?php
 
-//PHP-Mobile-Detect - http://mobiledetect.net
+//PHP-Mobile-Detect - https://github.com/serbanghita/Mobile-Detect/wiki/Code-examples
 //Before running conditions using this, you must have $detect = new Mobile_Detect(); before the logic.
-//For an example of this, see the footer.php of the theme.
-//Logic can fire from "isMobile()" or "isTablet()" or "is('AndroidOS')". View the Mobile_Detect.php file in /includes/ to see the full list.
-require_once 'Mobile_Detect.php';
+//Logic can fire from "$detect->isMobile()" or "$detect->isTablet()" or "$detect->is('AndroidOS')".
+require_once 'includes/Mobile_Detect.php';
+$GLOBALS["mobile_detect"] = new Mobile_Detect();
+
+
+function mobile_classes() {
+	$mobile_classes = '';
+	if ( $GLOBALS["mobile_detect"]->isMobile() ) {
+		$mobile_classes .= ' mobile';
+	} else {
+		$mobile_classes .= ' no-mobile';
+	}
+	if ( $GLOBALS["mobile_detect"]->isTablet() ) {
+		$mobile_classes .= ' tablet';
+	}
+	if ( $GLOBALS["mobile_detect"]->isiOS() ) {
+		$mobile_classes .= ' ios';
+	}
+	if ( $GLOBALS["mobile_detect"]->isAndroidOS() ) {
+		$mobile_classes .= ' androidos';
+	}
+	echo $mobile_classes;
+}
+
+//Control how scripts are loaded, and force clear cache for debugging
+if ( array_key_exists('debug', $_GET) ) {
+	$GLOBALS["defer"] = '';
+	$GLOBALS["async"] = '';
+	$GLOBALS["gumby_debug"] = 'gumby-debug';
+	header("Expires: Fri, 28 Mar 1986 02:40:00 GMT");
+	header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+	header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+	header("Cache-Control: post-check=0, pre-check=0", false);
+	header("Pragma: no-cache");
+} else {
+	$GLOBALS["defer"] = 'defer';
+	$GLOBALS["async"] = 'async';
+	$GLOBALS["gumby_debug"] = '';
+}
 
 
 //Automatically convert HEX colors to RGB.
