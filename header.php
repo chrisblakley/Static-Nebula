@@ -11,7 +11,15 @@
 		<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 		<meta charset="utf-8">
 
-		<title><?php echo $title = 'PHG Static Nebula'; ?></title>
+		<?php global $bloginfo; ?>
+		<?php
+			$bloginfo['name'] = 'Static Nebula';
+			$bloginfo['home_url'] = 'http://gearside.com/nebula/Static-Nebula-master';
+			$bloginfo['template_directory'] = 'http://gearside.com/nebula/Static-Nebula-master'; //No trailing slash!
+			$bloginfo['admin_email'] = 'chris@gearside.com';
+		?>
+
+		<title><?php echo $pageTitle = 'Home' . ' - ' . $bloginfo['name']; ?></title>
 		
 		<meta name="description" content="#" />
 		<meta name="keywords" content="#" /><!-- @TODO: Add keywords here. -->
@@ -22,14 +30,14 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		
 		<link rel="profile" href="http://gmpg.org/xfn/11" />
-		<link rel="stylesheet" href="css/normalize.css" />
-		<link rel="stylesheet" href="css/gumby.css" />
-		<link rel="stylesheet" href="css/font-awesome.min.css" /> <!-- @TODO: Remove if not using Font Awesome! -->
-		<link rel="stylesheet" href="css/jquery.mmenu.all.css" /> <!-- @TODO: Remove if not using mmenu! -->
-		<link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet" href="<?php echo $bloginfo['template_directory']; ?>/css/normalize.css" />
+		<link rel="stylesheet" href="<?php echo $bloginfo['template_directory']; ?>/css/gumby.css" />
+		<link rel="stylesheet" href="<?php echo $bloginfo['template_directory']; ?>/css/font-awesome.min.css" /> <!-- @TODO: Remove if not using Font Awesome! -->
+		<link rel="stylesheet" href="<?php echo $bloginfo['template_directory']; ?>/css/jquery.mmenu.all.css" /> <!-- @TODO: Remove if not using mmenu! -->
+		<link rel="stylesheet" href="<?php echo $bloginfo['template_directory']; ?>/style.css" />
                 		
-		<link rel="icon" href="images/favicon.ico">
-		<link rel="apple-touch-icon" href="images/apple-touch-icon.png"> <!-- @TODO: Create an apple touch icon 129x129px. -->
+		<link rel="icon" href="<?php echo $bloginfo['template_directory']; ?>/images/favicon.ico">
+		<link rel="apple-touch-icon" href="<?php echo $bloginfo['template_directory']; ?>/images/apple-touch-icon.png"> <!-- @TODO: Create an apple touch icon 129x129px. -->
 		
 		<?php global $social; ?>
 		
@@ -38,9 +46,9 @@
 		<meta property="og:title" content="<?php echo $title; ?>" />
 		<meta property="og:url" content="#" />
 		<meta property="og:description" content="#" />
-		<meta property="og:image" content="images/og-temp.png" /> <!-- @TODO: Create at least one new thumbnail. Minimum Size: 560x560px with a 246px tall safezone in the center. -->
-		<meta property="og:image" content="images/og-thumb1.jpg" />
-    	<meta property="og:image" content="images/og-thumb2.jpg" />
+		<meta property="og:image" content="<?php echo $bloginfo['template_directory']; ?>/images/og-temp.png" /> <!-- @TODO: Create at least one new thumbnail. Minimum Size: 560x560px with a 246px tall safezone in the center. -->
+		<meta property="og:image" content="<?php echo $bloginfo['template_directory']; ?>/images/og-thumb1.jpg" />
+    	<meta property="og:image" content="<?php echo $bloginfo['template_directory']; ?>/images/og-thumb2.jpg" />
 		<meta property="og:email" content="#" />
 		<meta property="og:phone_number" content="" /> <!-- Ex: "+1-315-478-6700" --> <!-- Important: Enter this value as it will be default across the site! @TODO: Make a php variable with this val. -->
 		<meta property="og:fax_number" content="" /> <!-- Ex: "+1-315-478-6700" -->
@@ -60,9 +68,9 @@
 
 		<!-- Google+ Metadata -->
 		<?php $social['google_plus_url'] = ''; //@TODO: Enter the URL of the Google+ page here. ?>
-		<meta itemprop="name" content="<?php echo $title; ?>" />
+		<meta itemprop="name" content="<?php echo $bloginfo['name']; ?>" />
 		<meta itemprop="description" content="#" />
-		<meta itemprop="image" content="images/fb-thumb1.jpg" />
+		<meta itemprop="image" content="<?php echo $bloginfo['template_directory']; ?>/images/fb-thumb1.jpg" />
 
 		<!-- Other Social Metadata -->
 		<?php $social['twitter_url'] = 'https://twitter.com/pinckneyhugo'; //@TODO: Enter the URL of the Twitter page here. ?>
@@ -70,13 +78,13 @@
 		<?php $social['youtube_url'] = ''; //@TODO: Enter the URL of the Youtube page here. ?>
 
 		<!--Microsoft Windows 8 Tiles /-->
-		<meta name="application-name" content="<?php echo $title; ?>" />
+		<meta name="application-name" content="<?php echo $bloginfo['name']; ?>" />
 		<meta name="msapplication-notification" content="frequency=720;polling-uri=http://domain.com/rssfeedlinkhere">
 		<meta name="msapplication-TileColor" content="#ffffff" />
-		<meta name="msapplication-square70x70logo" content="images/tiny.png" /><!-- 70x70px -->
-		<meta name="msapplication-square150x150logo" content="images/square.png" /><!-- 150x150px -->
-		<meta name="msapplication-wide310x150logo" content="images/wide.png" /><!-- 310x150px -->
-		<meta name="msapplication-square310x310logo" content="images/large.png" /><!-- 310x310px -->
+		<meta name="msapplication-square70x70logo" content="<?php echo $bloginfo['template_directory']; ?>/images/tiny.png" /><!-- 70x70px -->
+		<meta name="msapplication-square150x150logo" content="<?php echo $bloginfo['template_directory']; ?>/images/square.png" /><!-- 150x150px -->
+		<meta name="msapplication-wide310x150logo" content="<?php echo $bloginfo['template_directory']; ?>/images/wide.png" /><!-- 310x150px -->
+		<meta name="msapplication-square310x310logo" content="<?php echo $bloginfo['template_directory']; ?>/images/large.png" /><!-- 310x310px -->
 
 		<script type='text/javascript' src="js/libs/modernizr.custom.42059.js"></script>
 		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=weather"></script>
@@ -89,11 +97,11 @@
 		
 		<script>
 			bloginfo = [];
-			bloginfo['name'] = "#";
-			bloginfo['template_directory'] = "#";
-			bloginfo['stylesheet_url'] = "#";
-			bloginfo['home_url'] = "#";
-			bloginfo['admin_email'] = "#";
+			bloginfo['name'] = "<?php echo $bloginfo['name']; ?>";
+			bloginfo['template_directory'] = "<?php echo $bloginfo['template_directory']; ?>";
+			bloginfo['stylesheet_url'] = "<?php echo $bloginfo['template_directory'] . '/style.css'; ?>";
+			bloginfo['home_url'] = "<?php echo $bloginfo['template_directory'] . '/'; ?>";
+			bloginfo['admin_email'] = "<?php echo $bloginfo['admin_email']; ?>";
 			
 			social = [];
 			social['facebook_url'] = "<?php echo $social['facebook_url']; ?>";
@@ -109,7 +117,7 @@
 			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 			
-			ga('create', 'UA-00000000-1', 'domainnamegoeshere.com'); <?php //@TODO: Don't forget to update the Google Analytics ID in the functions.php file too! ?>
+			ga('create', 'UA-00000000-1', 'domainnamegoeshere.com');
 			ga('send', 'pageview');
 		</script>
 
