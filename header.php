@@ -1,4 +1,4 @@
-<?php require_once('includes/functions.php'); ?>
+<?php require_once('functions.php'); ?>
 
 <!DOCTYPE html>
 <!--[if lt IE 7 ]><html lang="en" class="no-js ie ie6 lt-ie7 lte-ie7 lt-ie8 lte-ie8 lt-ie9 lte-ie9 lt-ie10"><![endif]-->
