@@ -94,15 +94,15 @@
 			<script src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/main.js" <?php echo $GLOBALS["defer"]; ?>></script>
 			
 			<?php if ( 1==2 ) : //If page that uses DataTables ?>
-				<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=weather"></script>
+				<script src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/libs/jquery.dataTables.min.js"></script>
 			<?php endif; ?>
 			
 			<?php if ( 1==2 ) : //If page that uses Twitter Feed ?>
-				<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=weather"></script>
+				<script src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/libs/twitter.js"></script>
 			<?php endif; ?>
 			
 			<?php if ( $GLOBALS["debug"] ) : ?>
-				<script src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/performance-timing.js" <?php echo $GLOBALS["async"]; ?>></script>
+				<script src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/libs/performance-timing.js" <?php echo $GLOBALS["async"]; ?>></script>
 			<?php endif; ?>
 			
 			<script>
