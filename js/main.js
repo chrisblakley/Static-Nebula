@@ -1,9 +1,11 @@
 jQuery.noConflict();
 
 jQuery(document).ready(function() {	
-
-	/* To be vetted. Turn these into functions.
 	
+	facebookSDK();
+	conditionalJSLoading();
+	
+	/* To be vetted. Turn these into functions.
 		//Pull query strings from URL
 		var queries = new Array(); 
 	    var q = document.URL.split('?')[1];
@@ -15,25 +17,7 @@ jQuery(document).ready(function() {
 	            queries[hash[0]] = hash[1];
 	        }
 		} //End pull query strings from URL
-
-	
-		//Search term highlighter
-		var theSearchTerm = document.URL.split('?s=')[1];
-		if (typeof theSearchTerm != 'undefined' ) {
-			theSearchTerm = theSearchTerm.replace(/\+/g, ' ').replace(/\%20/g, ' ').replace(/\%22/g, '');
-			//console.log('the search is: ' + theSearchTerm);
-			jQuery('.searchcon .entry-title a, .searchcon .entry-summary').each(function(i){
-				var searchFinder = jQuery(this).text().replace( new RegExp( '(' + preg_quote( theSearchTerm ) + ')' , 'gi' ), '<span class="searchresultword">$1</span>' );
-				jQuery(this).html(searchFinder);
-			});
-		}
-		function preg_quote( str ) {
-			return (str+'').replace(/([\\\.\+\*\?\[\^\]\$\(\)\{\}\=\!\<\>\|\:])/g, "\\$1");
-		} //End Search term highlighter
-	
 	*/
-
-
 
 	//Init Custom Functions
 	gaEventTracking();
@@ -50,14 +34,19 @@ jQuery(document).ready(function() {
 	//jQuery('#primarynav .menu-item-has-children').doubleTapToGo();
 	
 	powerFooterWidthDist();
+	menuSearchReplacement();
 	searchValidator();
+	searchTermHighlighter();
+	singleResultDrawer();
+	pageVisibility();
 	errorLogAndFallback();
+	contactBackup();
 	
 	mapInfo = [];
-	//getAllLocations();
-	//mapActions();
+	getAllLocations();
+	mapActions();
 	
-	viewport = updateViewportDimensions();
+	//viewport = updateViewportDimensions(); //@TODO: This breaks in IE8
 	//console.debug(viewport);
 	jQuery(window).resize(function() {
 		waitForFinalEvent(function(){
@@ -66,14 +55,17 @@ jQuery(document).ready(function() {
 	    	powerFooterWidthDist();
 	    	
 	    	//Track size change
-	    	viewportResized = updateViewportDimensions();
+	    	/* viewportResized = updateViewportDimensions();  //@TODO: This breaks in IE8
 	    	if ( viewport.width > viewportResized.width ) {
 	    		ga('send', 'event', 'Window Resize', 'Smaller', viewport.width + 'px to ' + viewportResized.width + 'px');
+	    		Gumby.log('Sending GA event: ' + 'Window Resize', 'Smaller', viewport.width + 'px to ' + viewportResized.width + 'px');
 	    	} else if ( viewport.width < viewportResized.width ) {
 	    		ga('send', 'event', 'Window Resize', 'Bigger', viewport.width + 'px to ' + viewportResized.width + 'px');
+	    		Gumby.log('Sending GA event: ' + 'Window Resize', 'Bigger', viewport.width + 'px to ' + viewportResized.width + 'px');
 	    	}
 	    	viewport = updateViewportDimensions();
-	    	//console.debug(viewport);
+	    	//console.debug(viewport); */
+	    	
 		}, 500, "unique resize ID 1");
 	});
 	
@@ -85,15 +77,17 @@ jQuery(document).ready(function() {
 
 jQuery(window).on('load', function() {
 	
-	conditionalJSLoading();
-	
+	//conditionalJSLoading();
+		
 	jQuery('a, li, tr').removeClass('hover');
 	jQuery('html').addClass('loaded');
 	jQuery('.unhideonload').removeClass('hidden');
-		
+	
+	setTimeout(function(){
+		emphasizeSearchTerms();
+	}, 1000);
+	
 }); //End Window Load
-
-
 
 
 /*==========================
@@ -110,8 +104,158 @@ function helperFunctions(){
 	jQuery('li:last-child, tr:last-child').addClass('last-child');
 	jQuery('.column:first-child, .columns:first-child').addClass('first-child');
 	jQuery('a:hover, li:hover, tr:hover').addClass('hover');
+	
+	jQuery('.lte-ie9 .nebulashadow.inner-bottom, .lte-ie9 .nebulashadow.above').hide(); //@TODO: Anything we can do here to alleviate the issue? May need to just hide
 } //end helperFunctions()
 
+
+//Create Facebook functions
+function facebookSDK() {
+	window.fbAsyncInit = function() { //This is called once the Facebook SDK is initialized (from the footer)
+		FB.init({
+			appId: social['facebook_app_id'],
+			channelUrl: bloginfo['template_directory'] + '/includes/channel.php',
+			status: true,
+			xfbml: true
+		});
+		
+		window.FBuser = '';
+		window.FBstatus = false;
+		checkFacebookStatus();
+		
+		//Facebook Likes
+		FB.Event.subscribe('edge.create', function(href, widget) {
+			var currentPage = jQuery(document).attr('title');
+			ga('send', {
+				'hitType': 'social',
+				'socialNetwork': 'Facebook',
+				'socialAction': 'Like',
+				'socialTarget': href,
+				'page': currentPage
+			});
+			ga('send', 'event', 'Social', 'Facebook Like', currentPage);
+			Gumby.log('Sending GA event: ' + 'Social', 'Facebook Like', currentPage);
+		});
+	
+		//Facebook Unlikes
+		FB.Event.subscribe('edge.remove', function(href, widget) {
+			var currentPage = jQuery(document).attr('title');
+			ga('send', {
+				'hitType': 'social',
+				'socialNetwork': 'Facebook',
+				'socialAction': 'Unlike',
+				'socialTarget': href,
+				'page': currentPage
+			});
+			ga('send', 'event', 'Social', 'Facebook Unlike', currentPage);
+			Gumby.log('Sending GA event: ' + 'Social', 'Facebook Unlike', currentPage);
+		});
+	
+		//Facebook Send/Share
+		FB.Event.subscribe('message.send', function(href, widget) {
+			var currentPage = jQuery(document).attr('title');
+			ga('send', {
+				'hitType': 'social',
+				'socialNetwork': 'Facebook',
+				'socialAction': 'Send',
+				'socialTarget': href,
+				'page': currentPage
+			});
+			ga('send', 'event', 'Social', 'Facebook Share', currentPage);
+			Gumby.log('Sending GA event: ' + 'Social', 'Facebook Share', currentPage);
+		});
+	
+		//Facebook Comments
+		FB.Event.subscribe('comment.create', function(href, widget) {
+			var currentPage = jQuery(document).attr('title');
+			ga('send', {
+				'hitType': 'social',
+				'socialNetwork': 'Facebook',
+				'socialAction': 'Comment',
+				'socialTarget': href,
+				'page': currentPage
+			});
+			ga('send', 'event', 'Social', 'Facebook Comment', currentPage);
+			Gumby.log('Sending GA event: ' + 'Social', 'Facebook Comment', currentPage);
+		});
+	};
+	
+	jQuery('.facebook-connect').on('click', function(){
+		facebookLoginLogout();
+		return false;
+	});
+}
+
+//Connect to Facebook without using Facebook Login button
+function facebookLoginLogout() {
+	if ( !FBstatus ) {
+		FB.login(function(response) {
+			if (response.authResponse) {
+				checkFacebookStatus();
+				ga('send', 'event', 'Social', 'Facebook Connect', FBuser.name);
+				Gumby.log('Sending GA event: ' + 'Social', 'Facebook Connect', FBuser.name);
+			} else {
+				Gumby.log('User has logged in, but did not accept permissions.');
+				checkFacebookStatus();
+			}
+		}, {scope:'public_profile,email'});
+	} else {
+		FB.logout(function(response) {
+			Gumby.log('User has logged out.');
+			checkFacebookStatus();
+		});
+	}
+	return false;
+}
+
+//Fetch Facebook user information
+function checkFacebookStatus() {
+	FB.getLoginStatus(function(response) {
+		if ( response.status === 'connected' ) { //User is logged into Facebook and is connected to this app.
+			FBstatus = true;
+			FB.api('/me', function(response) {
+				FBuser = response;
+				Gumby.log(response.name + ' has connected with this app.');
+				prefillFacebookFields(response);
+				jQuery('.facebook-connect-con a').text('Logout').removeClass('disconnected').addClass('connected');
+
+				jQuery('#facebook-connect p strong').text('You have been connected to Facebook, ' + response.first_name + '.'); //Example page. @TODO: Get this out of main.js somehow!
+				jQuery('.fbpicture').attr('src', 'https://graph.facebook.com/' + response.id + '/picture?width=100&height=100'); //Example page. @TODO: Get this out of main.js somehow!
+			});
+			
+			jQuery('#facebook-connect p strong').text('You have been connected to Facebook...'); //Example page. @TODO: Get this out of main.js somehow!
+		} else if (response.status === 'not_authorized') { //User is logged into Facebook, but has not connected to this app.
+			Gumby.log('User is logged into Facebook, but has not connected to this app.');
+			FBstatus = false;
+			jQuery('.facebook-connect-con a').text('Connect with Facebook').removeClass('connected').addClass('disconnected');
+			
+			jQuery('#facebook-connect p strong').text('Please connect to this site by logging in below:'); //Example page. @TODO: Get this out of main.js somehow!
+		} else { //User is not logged into Facebook.
+			Gumby.log('User is not logged into Facebook.');
+			FBstatus = false;
+			jQuery('.facebook-connect-con a').text('Connect with Facebook').removeClass('connected').addClass('disconnected');
+			prefillFacebookFields();
+			
+			jQuery('#facebook-connect p strong').text('You are not logged into Facebook. Log in below:'); //Example page. @TODO: Get this out of main.js somehow!
+		}
+	});
+}
+
+//Fill or clear form inputs with Facebook data
+function prefillFacebookFields(response) {
+	if ( response ) {
+		jQuery('.fb-form-name, .comment-form-author input, .cform7-name').each(function(){
+			jQuery(this).val(response.first_name + ' ' + response.last_name).trigger('keyup');
+		});
+		jQuery('.fb-form-email, .comment-form-email input, .cform7-email, input[type="email"]').each(function(){
+			jQuery(this).val(response.email).trigger('keyup');
+		});
+	} else {
+		jQuery('.fb-form-name, .comment-form-author input, .cform7-name, .fb-form-email, .comment-form-email input, input[type="email"]').each(function(){
+			jQuery(this).val('').trigger('keyup');
+		});
+	}
+}
 
 //Social sharing buttons
 function socialSharing() {
@@ -121,8 +265,8 @@ function socialSharing() {
     var enctitle = encodeURI(title);
     jQuery('.fbshare').attr('href', 'http://www.facebook.com/sharer.php?u=' + encloc + '&t=' + enctitle).attr('target', '_blank');
     jQuery('.twshare').attr('href', 'https://twitter.com/intent/tweet?text=' + enctitle + '&url=' + encloc).attr('target', '_blank');
-    jQuery('.lishare').attr('href', 'http://www.linkedin.com/shareArticle?mini=true&url=' + encloc + '&title=' + enctitle).attr('target', '_blank');
     jQuery('.gshare').attr('href', 'https://plus.google.com/share?url=' + encloc).attr('target', '_blank');
+    jQuery('.lishare').attr('href', 'http://www.linkedin.com/shareArticle?mini=true&url=' + encloc + '&title=' + enctitle).attr('target', '_blank');
     jQuery('.emshare').attr('href', 'mailto:?subject=' + title + '&body=' + loc).attr('target', '_blank');
 } //end socialSharing()
 
@@ -234,13 +378,15 @@ function gaEventTracking(){
 	//Example Event Tracker (Category and Action are required. If including a Value, it should be a rational number and not a string.)
 	//jQuery('.selector').on('click', function() {
 	//	ga('send', 'event', 'Category', 'Action', 'Label', Value;
+	//  Gumby.log('Sending GA event: ' + 'Category', 'Action', 'Label', Value);
 	//});
 	
 	//External links
 	jQuery("a[rel*='external']").on('click', function(){
 		var linkText = jQuery(this).text();
-		ga('send', 'event', 'External Link', linkText);
-		Gumby.log('Sending GA event: ' + 'External Link', linkText);
+		var destinationURL = jQuery(this).attr('href');
+		ga('send', 'event', 'External Link', linkText, destinationURL);
+		Gumby.log('Sending GA event: ' + 'External Link', linkText, destinationURL);
 	});
 	
 	//PDF View/Download
@@ -276,8 +422,8 @@ function gaEventTracking(){
 	jQuery('a[href^="mailto"]').on('click', function(){
 		var emailAddress = jQuery(this).attr('href');
 		emailAddress = emailAddress.replace('mailto:', '');
-		ga('send', 'event', 'Contact Us', 'Email: ' + emailAddress);
-		Gumby.log('Sending GA event: ' + 'Contact Us', 'Email: ' + emailAddress);
+		ga('send', 'event', 'Mailto', 'Email: ' + emailAddress);
+		Gumby.log('Sending GA event: ' + 'Mailto', 'Email: ' + emailAddress);
 	});
 	
 	//Telephone link tracking
@@ -286,6 +432,30 @@ function gaEventTracking(){
 		phoneNumber = phoneNumber.replace('tel:+', '');
 		ga('send', 'event', 'Click-to-Call', 'Phone Number: ' + phoneNumber);
 		Gumby.log('Sending GA event: ' + 'Click-to-Call', 'Phone Number: ' + phoneNumber);
+	});
+	
+	//SMS link tracking
+	jQuery('a[href^="sms"]').on('click', function(){
+		var phoneNumber = jQuery(this).attr('href');
+		phoneNumber = phoneNumber.replace('sms:+', '');
+		ga('send', 'event', 'Click-to-Call', 'SMS to: ' + phoneNumber);
+		Gumby.log('Sending GA event: ' + 'Click-to-Call', 'SMS to: ' + phoneNumber);
+	});
+	
+	//Comment tracking @TODO: This might not be working.
+	jQuery('#commentform').on('submit', function(){
+		if ( !jQuery(this).find('#submit').hasClass('disabled') ) {
+			var currentPage = jQuery(document).attr('title');
+			if ( jQuery('#reply-title').length ) {
+				var replyTo = jQuery('#reply-title').children('a').text();
+				var commentID = jQuery('#reply-title').children('a').attr('href').replace('comment-', '');
+				ga('send', 'event', 'Comment', currentPage, 'Reply to: ' + replyTo + ' (' + commentID + ')');
+				Gumby.log('Sending GA event: ' + 'Comment', currentPage, 'Reply to: ' + replyTo + ' (' + commentID + ')');
+			} else {
+				ga('send', 'event', 'Comment', currentPage, 'Top Level');
+				Gumby.log('Sending GA event: ' + 'Comment', currentPage, 'Top Level');
+			}
+		}
 	});
 	
 	//Word copy tracking
@@ -321,8 +491,25 @@ function gaEventTracking(){
 			copyOver = 1;
 		}
 	});
+	
+	//AJAX Errors
+	jQuery(document).ajaxError(function(e, request, settings) {
+		ga('send', 'event', 'Error', 'AJAX Error', e.result + ' on: ' + settings.url);
+		ga('send', 'exception', e.result, true);
+		Gumby.log('Sending GA event: ' + 'Error', 'AJAX Error', e.result + ' on: ' + settings.url);
+	});
 		
 } //End gaEventTracking()
+
+
+//Google AdWords conversion tracking for AJAX
+function conversionTracker() {
+	var  iframe = document.createElement('iframe');
+	iframe.style.width = '0px';
+	iframe.style.height = '0px';
+	document.body.appendChild(iframe);
+	iframe.src = bloginfo['template_directory'] + '/includes/thanks.html';
+};
 
 
 function googlePlusCallback(jsonParam) {
@@ -339,11 +526,6 @@ function googlePlusCallback(jsonParam) {
 	}
 }
 
-//Detect and log errors, and fallback fixes
-function errorLogAndFallback() {	
-	//Error logs here
-}
-
 function mmenu() {
 	jQuery("#mobilenav").mmenu({
 	    //Options
@@ -358,6 +540,9 @@ function mmenu() {
 	    classes: "mm-light"
 	}, {
 		//Configuration
+	}).on('opened.mm', function(){
+		history.replaceState(null, document.title, location);
+		history.pushState(null, document.title, location);
 	});
 	
 	jQuery("#mobilecontact").mmenu({
@@ -371,6 +556,9 @@ function mmenu() {
 		}
 	}, {
 		//Configuration
+	}).on('opened.mm', function(){
+		history.replaceState(null, document.title, location);
+		history.pushState(null, document.title, location);
 	});
 	
 	jQuery('.mm-search input').wrap('<form method="get" action="' + bloginfo['home_url'] + '"></form>').attr('name', 's');
@@ -387,6 +575,17 @@ function mmenu() {
 		jQuery('.clearsearch').addClass('hidden');
 		return false;
 	});
+		
+	//Close mmenu on back button click
+	if (window.history && window.history.pushState) {
+		window.addEventListener("popstate", function(e) {
+			if ( jQuery('html.mm-opened').length ) {
+				jQuery(".mm-menu").trigger("close.mm");
+				e.stopPropagation();
+			}
+		}, false);
+	}
+	
 } //end mmenu()
 
 //Power Footer Width Distributor
@@ -403,6 +602,24 @@ function powerFooterWidthDist() {
 		jQuery('#powerfooter ul.menu > li').css('width', footerItemWidth);
 	}
 } //end PowerFooterWidthDist
+
+
+//Menu Search Replacement
+function menuSearchReplacement(){
+	jQuery('li.nebula-search').html('<form class="search" method="get" action="' + bloginfo['home_url'] + '/"><input type="search" class="input search" name="s" placeholder="Search" x-webkit-speech/></form>');
+	jQuery('li.nebula-search input, input.nebula-search').on('focus', function(){
+		jQuery(this).addClass('focus active');
+	});
+	jQuery('li.nebula-search input, input.nebula-search').on('blur', function(){
+		if ( jQuery(this).val() == '' || jQuery(this).val().trim().length === 0 ) {
+			jQuery(this).removeClass('focus active focusError').attr('placeholder', 'Search');
+			
+		} else {
+			jQuery(this).removeClass('active');
+		}
+	});
+}
+
 
 //Search Validator
 function searchValidator() {
@@ -440,6 +657,106 @@ function searchValidator() {
 		}
 	});
 } //End searchValidator
+
+
+//Highlight search terms
+function searchTermHighlighter(){
+	var theSearchTerm = document.URL.split('?s=')[1];
+	if ( typeof theSearchTerm != 'undefined' ) {
+		theSearchTerm = theSearchTerm.replace(/\+/g, ' ').replace(/\%20/g, ' ').replace(/\%22/g, '');
+		jQuery('article .entry-title a, article .entry-summary').each(function(i){
+			var searchFinder = jQuery(this).text().replace(new RegExp( '(' + preg_quote(theSearchTerm) + ')' , 'gi' ), '<span class="searchresultword">$1</span>');
+			jQuery(this).html(searchFinder);
+		});
+	}
+	function preg_quote(str) {
+		return (str + '').replace(/([\\\.\+\*\?\[\^\]\$\(\)\{\}\=\!\<\>\|\:])/g, "\\$1");
+	}
+}
+
+
+//Emphasize the search Terms
+function emphasizeSearchTerms() {
+	var theSearchTerm = document.URL.split('?s=')[1];
+	if (typeof theSearchTerm != 'undefined' ) {
+		var origBGColor = jQuery('.searchresultword').css('background-color');
+		jQuery('.searchresultword').each(function(i) {
+	    	var stallFor = 150 * parseInt(i);
+			jQuery(this).delay(stallFor).animate({
+			    backgroundColor: 'rgba(255, 255, 0, 0.5)',
+			    borderColor: 'rgba(255, 255, 0, 1)',
+			}, 500, 'easeInOutCubic', function() {
+			    jQuery(this).delay(1000).animate({
+				    backgroundColor: origBGColor,
+				}, 1000, 'easeInOutCubic', function(){
+				    jQuery(this).addClass('transitionable');
+				});
+			});
+		});		
+	}
+}
+
+//Single search result redirection drawer
+function singleResultDrawer(){
+	var theSearchTerm = document.URL.split('?rs=')[1]; //This is not needed if Search Everything can fix the "?s=" issue.
+	if ( typeof theSearchTerm != 'undefined' ) {
+		theSearchTerm = theSearchTerm.replace(/\+/g, ' ').replace(/\%20/g, ' ').replace(/\%22/g, ''); //This is not needed if Search Everything can fix the "?s=" issue.
+		jQuery('#searchform input#s').val(theSearchTerm); //This is not needed if Search Everything can fix the "?s=" issue.
+	}
+	
+	jQuery('.searchresultsingle .close').on('click', function(){
+		var permalink = jQuery(this).attr('href');
+		jQuery('.searchresultsinglecon').slideUp();
+		history.replaceState({}, document.title, permalink);
+		return false;
+	});
+}
+
+
+//Page Visibility
+function pageVisibility(){
+	visFirstHidden = 0;
+	visibilityChangeActions();
+	jQuery(document).on('visibilitychange', function(){								
+		visibilityChangeActions();
+	});
+	
+	function visibilityChangeActions(){
+		if ( document.visibilityState == 'prerender' ) { //Page was prerendered
+			var pageTitle = jQuery(document).attr('title');
+			ga('send', 'event', 'Page Visibility', 'Prerendered', pageTitle);
+			Gumby.log('Sending GA event: ' + 'Page Visibility', 'Prerendered', pageTitle);
+			//@TODO: prevent autoplay of videos
+		}
+		
+		if ( getPageVisibility() ) { //Page is hidden
+			//@TODO: pause youtube
+			//@TODO: pause vimeo
+			visFirstHidden = 1;
+			visTimerBefore = (new Date()).getTime();
+			var pageTitle = jQuery(document).attr('title');
+			ga('send', 'event', 'Page Visibility', 'Hidden', pageTitle);
+			Gumby.log('Sending GA event: ' + 'Page Visibility', 'Hidden', pageTitle);
+		} else { //Page is visible
+			//@TODO: resume autoplay of videos
+			if ( visFirstHidden == 1 ) {
+				var visTimerAfter = (new Date()).getTime();
+				var visTimerResult = (visTimerAfter - visTimerBefore)/1000;
+				var pageTitle = jQuery(document).attr('title');
+				ga('send', 'event', 'Page Visibility', 'Visible', pageTitle + ' (Hidden for: ' + visTimerResult + 's)');
+				Gumby.log('Sending GA event: ' + 'Page Visibility', 'Visible', pageTitle + ' (Hidden for: ' + visTimerResult + 's)');
+			}
+		}
+	}
+	
+	function getPageVisibility(){
+		if ( typeof document.hidden != "undefined" ) {
+			return document.hidden;
+		} else {
+			return false;
+		}
+	}
+}
 
 //Contact form pre-validator
 function cFormPreValidator() {
@@ -636,9 +953,10 @@ function cFormPreValidator() {
 } //end cFormPreValidator()
 
 //CForm7 submit success callback
-//Add on_sent_ok: "cFormSuccess('EnterTheFormNameHere');" to Additional Settings in WP Admin.
-function cFormSuccess(formName){
-    //Contact Form 7 Submit Success actions here.
+//Add on_sent_ok: "cFormSuccess();" to Additional Settings in WP Admin.
+function cFormSuccess(){
+    //Contact Form 7 Submit Success actions here. Could pass a parameter if needed.
+    //conversionTracker(); //Call conversion tracker if contact is a conversion goal.
 }
 
 //Allows only numerical input on specified inputs. Call this on keyUp? @TODO: Make the selector into oThis and pass that to the function from above.
@@ -649,6 +967,73 @@ function onlyNumbers() {
 	});
 }
 
+function checkCommentVal(oThis) {
+	//@TODO: Count how many required fields there are. If any of them don't have value, then trigger disabled
+	if ( jQuery(oThis).val() != '' ) {
+		jQuery(oThis).parents('form').find('input[type="submit"], button[type="submit"]').removeClass('disabled');
+	} else {
+		jQuery(oThis).parents('form').find('input[type="submit"], button[type="submit"]').addClass('disabled');
+	}
+}
+
+function contactBackup() {
+	checkCommentVal('.contact-form-message textarea');
+	jQuery('.contact-form-message textarea').on('keyup focus blur', function(){
+		checkCommentVal(this);
+	});
+	
+	jQuery(document).on('click', 'disabled', function(){
+		return false;
+	});
+	
+	jQuery(document).on('submit', '.contact-form-backup', function(e){
+		var contactData = [{
+			'name': jQuery(".contact-form-name input").val(),
+			'email': jQuery(".contact-form-email input").val(),
+			'message': jQuery(".contact-form-message textarea").val()
+		}];
+		jQuery.ajax({
+			type: "POST",
+			url: bloginfo["admin-ajax"],
+			data: {
+				action: 'nebula_backup_contact_send',
+				data: contactData,
+			},
+			success: function(response){
+				jQuery('.contact-form-backup input:not(#contact-submit), .contact-form-backup textarea').val('');
+				//Collapse the contact form and replace with sent notification
+				//call google adwords conversion tracker
+				//remove the contact form
+				ga('send', 'event', 'Contact', 'Submit', 'Backup Form Submission');
+				Gumby.log('Sending GA event: ' + 'Contact', 'Submit', 'Backup AJAX Form Submission');
+			},
+			error: function(MLHttpRequest, textStatus, errorThrown){
+				ga('send', 'event', 'Contact', 'Error', 'Backup Form AJAX Error');
+				Gumby.log('Sending GA event: ' + 'Contact', 'Error', 'Backup AJAX Form Error');
+			},
+			timeout: 60000
+		});
+		e.preventDefault();
+		return false;
+	});
+}
+
+//Detect and log errors, and fallback fixes
+function errorLogAndFallback() {
+	//Check if Contact Form 7 is active and if the selected form ID exists
+	if ( jQuery('.cform-disabled').length ) {
+		var currentPage = jQuery(document).attr('title');
+		ga('send', 'event', 'Error', 'Contact Form 7 Disabled', currentPage);
+		Gumby.warn('Warning: Contact Form 7 is disabled! Reverting to mailto link.');
+	} else if ( jQuery('#cform7-container:contains("Not Found")').length > 0 ) {
+		jQuery('#cform7-container').text('').append('<li><div class="medium primary btn icon-left entypo icon-mail"><a class="cform-not-found" href="mailto:' + bloginfo['admin_email'] + '?subject=Email%20submission%20from%20' + document.URL + '" target="_blank">Email Us</a></div><!--/button--></li>');
+		ga('send', 'event', 'Error', 'Contact Form 7 Form Not Found', currentPage);
+		Gumby.warn('Warning: Contact Form 7 form is not found! Reverting to mailto link.');
+		jQuery(document).on('click', '.cform-not-found', function(){
+			ga('send', 'event', 'Contact', 'Submit (Intent)', 'Backup Mailto Intent');
+		});
+	}
+}
 
 //Waits until event (generally resize) finishes before triggering. Call with waitForFinalEvent();
 var waitForFinalEvent = (function () {
@@ -666,6 +1051,7 @@ var waitForFinalEvent = (function () {
 
 
 //Conditional JS Library Loading
+//This could be done better I think (also, it runs too late in the stack).
 function conditionalJSLoading() {
 	//Only load Twitter if Twitter wrapper exists.
 	if ( jQuery('#twittercon').length ) {
@@ -676,8 +1062,8 @@ function conditionalJSLoading() {
 			jQuery('#twittercon').css('border', '1px solid red').addClass('hidden');
 		});
 	}
+	
 	//Only load maskedinput.js library if phone or bday field exists.
-/*
 	if ( jQuery('.cform7-phone').length || jQuery('.cform7-bday').length ) {
 		jQuery.getScript(bloginfo['template_directory'] + '/js/libs/jquery.maskedinput.js').done(function(){
 			cFormPreValidator();
@@ -687,7 +1073,7 @@ function conditionalJSLoading() {
 	} else {
 		cFormPreValidator();
 	}
-*/
+	
 	//Only load dataTables library if dataTables table exists.
 	if ( jQuery('.dataTables_wrapper').length ) {
 		
@@ -697,7 +1083,18 @@ function conditionalJSLoading() {
 			console.log('jquery.dataTables.min.js could not be loaded.');
 		});
 		Modernizr.load(bloginfo['template_directory'] + '/css/jquery.dataTables.css');
-	}	
+	}
+	
+	//Load Gumby UI scripts as needed
+	//THIS IS STILL IN THE TESTING PHASE!
+		//WE NEED TO DETERMINE: Does this work? Is it easier than uncommenting <script> calls in the footer? Is it slower than using links?
+	if ( jQuery('.tab-nav').length ) {
+		jQuery.getScript(bloginfo['template_directory'] + '/js/libs/ui/gumby.tabs.js').done(function(){
+			//Success
+		}).fail(function(){
+			console.log('gumby.tabs.js could not be loaded.');
+		});
+	}
 } //end conditionalJSLoading()
 
 
@@ -713,6 +1110,56 @@ function twitterFeed() {
         JQTWEET.loadTweets();
     }
 } //end twitterFeed()
+
+
+function cookieActions() {
+	
+	/*
+		createCookie('example', 'true', 30);
+		
+		if ( readCookie('example') ) {
+			//Stuff here if cookie exists
+		}
+		
+		eraseCookie('example');
+	*/
+	
+	//Cookie actions here
+	
+
+} //end cookieActions()
+
+//Cookie Management
+function createCookie(name, value, days) {
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime()+(days*24*60*60*1000));
+		var expires = "; expires="+date.toGMTString();
+	} else {
+		var expires = "";
+	}
+	document.cookie = name+"="+value+expires+"; path=/";
+	Gumby.log('Created cookie: ' + name + ', with the value: ' + value + ', and expires on: ' + expires);
+}
+function readCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for (var i=0; i<ca.length; i++) {
+		var c = ca[i];
+		while (c.charAt(0) == ' ') {
+			c = c.substring(1, c.length);
+			if (c.indexOf(nameEQ) == 0) {
+				Gumby.log('Cookie "' + name + '" exists.');
+				return c.substring(nameEQ.length, c.length);
+			}
+		}
+	}
+	return null;
+}
+function eraseCookie(name) {
+	createCookie(name,"",-1);
+	Gumby.warn('Erased cookie: ' + name);
+}
 
 
 
@@ -917,6 +1364,7 @@ function errorCallback(error) {
     Gumby.warn(geolocationErrorMessage);
     jQuery(document).trigger('geolocationError');
     ga('send', 'event', 'Geolocation', 'Error', geolocationErrorMessage);
+    Gumby.log('Sending GA event: ' + 'Geolocation', 'Error', geolocationErrorMessage);
 }
 
 //Retreive Lat/Lng locations
@@ -934,6 +1382,12 @@ function getAllLocations() {
 //Render the Google Map
 function renderMap(mapInfo) {
     Gumby.log('Rendering Google Map');
+    
+    if ( typeof google === 'undefined' ) {
+    	Gumby.log('google is not defined. Likely the Google Maps script is not being seen.');
+    	return false;
+    }
+    
     var myOptions = {
 		zoom: 11,
 		scrollwheel: false,

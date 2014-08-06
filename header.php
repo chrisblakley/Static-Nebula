@@ -1,28 +1,19 @@
-<?php include('includes/functions.php'); ?>
+<?php require_once('includes/functions.php'); ?>
 
 <!DOCTYPE html>
 <!--[if lt IE 7 ]><html lang="en" class="no-js ie ie6 lt-ie7 lte-ie7 lt-ie8 lte-ie8 lt-ie9 lte-ie9 lt-ie10"><![endif]-->
 <!--[if IE 7 ]><html lang="en" class="no-js ie ie7 lte-ie7 lt-ie8 lte-ie8 lt-ie9 lte-ie9 lt-ie10"><![endif]-->
 <!--[if IE 8 ]><html lang="en" class="no-js ie ie8 lte-ie8 lt-ie9 lte-ie9 lt-ie10"><![endif]-->
 <!--[if IE 9 ]><html lang="en" class="no-js ie ie9 lte-ie9 lt-ie10"><![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--><html lang="en" class=" <?php echo (array_key_exists('debug', $_GET)) ? 'debug' : ''; ?> <?php //mobile_classes(); ?> no-js "><!--<![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html lang="en" class=" <?php echo ($GLOBALS["debug"]) ? 'debug' : ' '; ?> <?php mobile_classes(); ?> no-js "><!--<![endif]-->
 	<head>
-		
-		<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+		<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1' />
 		<meta charset="utf-8">
-
-		<?php global $bloginfo; ?>
-		<?php
-			$bloginfo['name'] = 'Static Nebula';
-			$bloginfo['home_url'] = 'http://gearside.com/nebula/Static-Nebula-master';
-			$bloginfo['template_directory'] = 'http://gearside.com/nebula/Static-Nebula-master'; //No trailing slash!
-			$bloginfo['admin_email'] = 'chris@gearside.com';
-		?>
-
-		<title><?php echo $pageTitle = 'Home' . ' - ' . $bloginfo['name']; ?></title>
 		
-		<meta name="description" content="#" />
-		<meta name="keywords" content="#" /><!-- @TODO: Add keywords here. -->
+		<title><?php echo $pageTitle = 'Home' . ' - ' . $GLOBALS['bloginfo']['name']; ?></title>
+		
+		<meta name="description" content="<?php echo $GLOBALS['meta']['description'] = 'Web Development Template'; ?>" />
+		<meta name="keywords" content="<?php echo $GLOBALS['meta']['keywords'] = '#'; ?>" />
 		<meta name="author" content="humans.txt" />
 		
 		<meta name="HandheldFriendly" content="True">
@@ -30,331 +21,329 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		
 		<link rel="profile" href="http://gmpg.org/xfn/11" />
-		<link rel="stylesheet" href="<?php echo $bloginfo['template_directory']; ?>/css/normalize.css" />
-		<link rel="stylesheet" href="<?php echo $bloginfo['template_directory']; ?>/css/gumby.css" />
-		<link rel="stylesheet" href="<?php echo $bloginfo['template_directory']; ?>/css/font-awesome.min.css" /> <!-- @TODO: Remove if not using Font Awesome! -->
-		<link rel="stylesheet" href="<?php echo $bloginfo['template_directory']; ?>/css/jquery.mmenu.all.css" /> <!-- @TODO: Remove if not using mmenu! -->
-		<link rel="stylesheet" href="<?php echo $bloginfo['template_directory']; ?>/style.css" />
-                		
-		<link rel="icon" href="<?php echo $bloginfo['template_directory']; ?>/images/favicon.ico">
-		<link rel="apple-touch-icon" href="<?php echo $bloginfo['template_directory']; ?>/images/apple-touch-icon.png"> <!-- @TODO: Create an apple touch icon 129x129px. -->
 		
-		<?php global $social; ?>
+		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" />
+		<link rel="stylesheet" href="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/css/normalize.css" />
+		<link rel="stylesheet" href="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/css/gumby.css" />
+		<link rel="stylesheet" href="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/css/jquery.mmenu.all.css" /> <!-- @TODO: Remove if not using mmenu! -->
+		<link rel="stylesheet" href="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/style.css" />
+        		
+		<link rel="icon" href="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/images/favicon.ico">
+		<link rel="apple-touch-icon" href="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/images/apple-touch-icon.png"> <!-- @TODO: Create an apple touch icon 129x129px. -->
 		
 		<!-- Open Graph Metadata -->
 		<?php //Check that all Open Graph data is working: https://developers.facebook.com/tools/debug ?>
-		<meta property="og:title" content="<?php echo $title; ?>" />
-		<meta property="og:url" content="#" />
-		<meta property="og:description" content="#" />
-		<meta property="og:image" content="<?php echo $bloginfo['template_directory']; ?>/images/og-temp.png" /> <!-- @TODO: Create at least one new thumbnail. Minimum Size: 560x560px with a 246px tall safezone in the center. -->
-		<meta property="og:image" content="<?php echo $bloginfo['template_directory']; ?>/images/og-thumb1.jpg" />
-    	<meta property="og:image" content="<?php echo $bloginfo['template_directory']; ?>/images/og-thumb2.jpg" />
-		<meta property="og:email" content="#" />
-		<meta property="og:phone_number" content="" /> <!-- Ex: "+1-315-478-6700" --> <!-- Important: Enter this value as it will be default across the site! @TODO: Make a php variable with this val. -->
-		<meta property="og:fax_number" content="" /> <!-- Ex: "+1-315-478-6700" -->
-		<meta property="og:latitude" content="" />
-		<meta property="og:longitude" content="" />
-		<meta property="og:street-address" content="" />
-		<meta property="og:locality" content="" /> <!-- City -->
-		<meta property="og:region" content="" /> <!-- State -->
-		<meta property="og:postal-code" content="" />
-		<meta property="og:country-name" content="" /> <!-- USA -->
-
+		<meta property="og:title" content="<?php echo $GLOBALS['bloginfo']['name']; ?>" />
+		<meta property="og:url" content="<?php echo $GLOBALS['bloginfo']['permalink'] = ''; ?>" />
+		<meta property="og:description" content="<?php echo $GLOBALS['meta']['description']; ?>" />
+		<meta property="og:image" content="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/images/og-thumb1.png" /> <!-- @TODO: Create at least one new thumbnail. Minimum Size: 560x560px with a 246px tall safezone in the center. Use og-temp.png as a template. -->
+    	<meta property="og:image" content="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/images/og-thumb2.png" /> <!-- @TODO: Create at least one new thumbnail. Minimum Size: 560x560px with a 246px tall safezone in the center. Use og-temp.png as a template. -->
+		<meta property="og:email" content="<?php echo $GLOBALS['bloginfo']['admin_email']; ?>" />
+		<meta property="og:phone_number" content="+<?php echo $GLOBALS['info']['phone'] = ''; ?>" /> <!-- Ex: "1-315-478-6700" -->
+		<meta property="og:fax_number" content="+<?php echo $GLOBALS['info']['fax'] = ''; ?>" /> <!-- Ex: "1-315-478-6700" -->
+		<meta property="og:latitude" content="<?php echo $GLOBALS['info']['latitude'] = ''; ?>" />
+		<meta property="og:longitude" content="<?php echo $GLOBALS['info']['longitude'] = ''; ?>" />
+		<meta property="og:street-address" content="<?php echo $GLOBALS['info']['street_address'] = '760 West Genesee Street'; ?>" />
+		<meta property="og:locality" content="<?php echo $GLOBALS['info']['locality'] = 'Syracuse'; ?>" /> <!-- City -->
+		<meta property="og:region" content="<?php echo $GLOBALS['info']['region'] = 'NY'; ?>" /> <!-- State -->
+		<meta property="og:postal-code" content="<?php echo $GLOBALS['info']['postal_code'] = '13204'; ?>" />
+		<meta property="og:country-name" content="<?php echo $GLOBALS['info']['country'] = 'USA'; ?>" /> <!-- USA -->
+		<?php
+			$GLOBALS['info']['full_address'] = $GLOBALS['info']['street_address'] . ', ' . $GLOBALS['info']['locality'] . ', ' . $GLOBALS['info']['region'] . ' ' . $GLOBALS['info']['postal_code'];
+			$GLOBALS['info']['enc_address'] = str_replace(array(' ', ','), array('+', ''), $GLOBALS['info']['full_address']);
+		?>
+		
 		<!-- Facebook Metadata -->
-		<?php $social['facebook_url'] = 'https://www.facebook.com/PinckneyHugo'; //@TODO: Enter the URL of the Facebook page here. ?>
-		<?php $social['facebook_app_id'] = ''; //@TODO: Enter the Facebook App ID here. How to get an App ID: http://smashballoon.com/custom-facebook-feed/access-token/ (Good idea to save the Access Token too!)?>
+		<?php $GLOBALS['social']['facebook_url'] = 'https://www.facebook.com/PinckneyHugo'; //@TODO: Enter the URL of the Facebook page here. ?>
+		<?php $GLOBALS['social']['facebook_app_id'] = ''; //@TODO: Enter Facebook App ID. Instructions: http://smashballoon.com/custom-facebook-feed/access-token/ ?>
+		<?php $GLOBALS['social']['facebook_access_token'] = ''; //@TODO: Enter Facebook Access Token. This only stored in PHP for reference. Do NOT share or store in browser-facing code. ?>
 		<meta property="fb:page_id" content="" /><!-- @TODO: Remove this line if not related to a FB Page. -->
 		<meta property="fb:admins" content="" /><!-- @TODO: Comma separated IDs of FB admins. Ex: "1234,2345,3456" -->
-
+				
 		<!-- Google+ Metadata -->
-		<?php $social['google_plus_url'] = ''; //@TODO: Enter the URL of the Google+ page here. ?>
-		<meta itemprop="name" content="<?php echo $bloginfo['name']; ?>" />
-		<meta itemprop="description" content="#" />
-		<meta itemprop="image" content="<?php echo $bloginfo['template_directory']; ?>/images/fb-thumb1.jpg" />
+		<?php $GLOBALS['social']['google_plus_url'] = ''; //@TODO: Enter the URL of the Google+ page here. ?>
+		<meta itemprop="name" content="<?php echo $GLOBALS['bloginfo']['name']; ?>" />
+		<meta itemprop="description" content="<?php echo $GLOBALS['meta']['description']; ?>" />
+		<meta itemprop="image" content="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/images/og-thumb1.png" />
 
 		<!-- Other Social Metadata -->
-		<?php $social['twitter_url'] = 'https://twitter.com/pinckneyhugo'; //@TODO: Enter the URL of the Twitter page here. ?>
-		<?php $social['linkedin_url'] = ''; //@TODO: Enter the URL of the LinkedIn page here. ?>
-		<?php $social['youtube_url'] = ''; //@TODO: Enter the URL of the Youtube page here. ?>
+		<?php $GLOBALS['social']['twitter_url'] = 'https://twitter.com/pinckneyhugo'; //@TODO: Enter the URL of the Twitter page here. ?>
+		<?php $GLOBALS['social']['linkedin_url'] = ''; //@TODO: Enter the URL of the LinkedIn page here. ?>
+		<?php $GLOBALS['social']['youtube_url'] = ''; //@TODO: Enter the URL of the Youtube page here. ?>
+		<?php $GLOBALS['social']['instagram_url'] = ''; //@TODO: Enter the URL of the Instagram page here. ?>
 
 		<!--Microsoft Windows 8 Tiles /-->
-		<meta name="application-name" content="<?php echo $bloginfo['name']; ?>" />
-		<meta name="msapplication-notification" content="frequency=720;polling-uri=http://domain.com/rssfeedlinkhere">
+		<meta name="application-name" content="<?php echo $GLOBALS['bloginfo']['name']; ?>" />
 		<meta name="msapplication-TileColor" content="#ffffff" />
-		<meta name="msapplication-square70x70logo" content="<?php echo $bloginfo['template_directory']; ?>/images/tiny.png" /><!-- 70x70px -->
-		<meta name="msapplication-square150x150logo" content="<?php echo $bloginfo['template_directory']; ?>/images/square.png" /><!-- 150x150px -->
-		<meta name="msapplication-wide310x150logo" content="<?php echo $bloginfo['template_directory']; ?>/images/wide.png" /><!-- 310x150px -->
-		<meta name="msapplication-square310x310logo" content="<?php echo $bloginfo['template_directory']; ?>/images/large.png" /><!-- 310x310px -->
-
-		<script type='text/javascript' src="js/libs/modernizr.custom.42059.js"></script>
-		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=weather"></script>
+		<meta name="msapplication-square70x70logo" content="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/images/tiny.png" /><!-- 70x70px -->
+		<meta name="msapplication-square150x150logo" content="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/images/square.png" /><!-- 150x150px -->
+		<meta name="msapplication-wide310x150logo" content="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/images/wide.png" /><!-- 310x150px -->
+		<meta name="msapplication-square310x310logo" content="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/images/large.png" /><!-- 310x310px -->
+		
+		<script>
+			clientinfo = [];
+			clientinfo["remote_addr"] = "<?php $_SERVER['REMOTE_ADDR']; ?>";
+			
+			bloginfo = [];
+			bloginfo["name"] = "<?php echo $GLOBALS['bloginfo']['name']; ?>";
+			bloginfo["template_directory"] = "<?php echo $GLOBALS['bloginfo']['template_directory']; ?>";
+			bloginfo["stylesheet_url"] = "<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/style.css";
+			bloginfo["home_url"] = "<?php echo $GLOBALS['bloginfo']['home_url']; ?>";
+			bloginfo["admin_email"] = "<?php echo $GLOBALS['bloginfo']['admin_email']; ?>";
+	
+			social = [];
+			social['facebook_url'] = "<?php echo $GLOBALS['social']['facebook_url']; ?>";
+			social['facebook_app_id'] = "<?php echo $GLOBALS['social']['facebook_app_id']; ?>";
+			social['twitter_url'] = "<?php echo $GLOBALS['social']['twitter_url']; ?>";
+			social['google_plus_url'] = "<?php echo $GLOBALS['social']['google_plus_url']; ?>";
+			social['linkedin_url'] = "<?php echo $GLOBALS['social']['linkedin_url']; ?>";
+			social['youtube_url'] = "<?php echo $GLOBALS['social']['youtube_url']; ?>";
+			social['instagram_url'] = "<?php echo $GLOBALS['social']['instagram_url']; ?>";
+		</script>
 		
 		<!-- Grab Google CDN's jQuery, fall back to local if offline -->
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<script>window.jQuery || document.write('<script src="js/libs/jquery-1.10.1.min.js"><\/script>')</script>
 		
-		<script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
+		<script type='text/javascript' src="js/libs/modernizr.custom.64172.js"></script>
+		<!-- <script type='text/javascript' src="js/libs/modernizr.min.js"></script> @TODO: Switch to this modernizr when launching (if not using advanced polyfills) -->
 		
-		<script>
-			bloginfo = [];
-			bloginfo['name'] = "<?php echo $bloginfo['name']; ?>";
-			bloginfo['template_directory'] = "<?php echo $bloginfo['template_directory']; ?>";
-			bloginfo['stylesheet_url'] = "<?php echo $bloginfo['template_directory'] . '/style.css'; ?>";
-			bloginfo['home_url'] = "<?php echo $bloginfo['template_directory'] . '/'; ?>";
-			bloginfo['admin_email'] = "<?php echo $bloginfo['admin_email']; ?>";
-			
-			social = [];
-			social['facebook_url'] = "<?php echo $social['facebook_url']; ?>";
-			social['twitter_url'] = "<?php echo $social['twitter_url']; ?>";
-			social['google_plus_url'] = "<?php echo $social['google_plus_url']; ?>";
-			social['linkedin_url'] = "<?php echo $social['linkedin_url']; ?>";
-			social['youtube_url'] = "<?php echo $social['youtube_url']; ?>";
-		</script>
+		<?php if ( 1==2 ) : //If page that uses Google Maps ?>
+			<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=weather"></script>
+		<?php endif; ?>
+		
+		<!--[if lt IE 9]>
+			<script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
+			<script src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/libs/html5shiv.js"></script>
+			<script src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/libs/respond.js"></script>
+		<![endif]-->
 		
 		<script> //Universal Analytics
 			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+				(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+				m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-			
-			ga('create', 'UA-00000000-1', 'domainnamegoeshere.com');
+		
+			ga('create', '<?php echo $GLOBALS['ga'] = 'UA-000000-1'; ?>', 'auto'); <?php //@TODO: Change Tracking ID here! ?>
 			ga('send', 'pageview');
 		</script>
-
+		
+		<script type="text/javascript">
+			window.addEventListener('error', function(e) {
+				if ( e.lineno != 0 ) {
+					ga('send', 'event', 'Error', 'JavaScript Error', e.message + ' in: ' + e.filename + ' on line ' + e.lineno);
+					ga('send', 'exception', e.message, false);
+				}
+			});
+		</script>		
 	</head>
+	
 	<body>
 		<div id="fullbodywrapper">
 		
-		<?php //Facebook App ID: ###############, Access Token: ######################## ?>
 		<div id="fb-root"></div>
-		<script type="text/javascript">
-			window.fbAsyncInit = function() {
-		    //Initialize the Facebook JavaScript SDK
-		    FB.init({
-		      appId      : '###############', //@TODO: Replace with client's FB App ID!
-		      channelUrl : 'includes/channel.html',
-		      status     : true,
-		      xfbml      : true
-		    });
-		    							
-			//Facebook Likes
-			FB.Event.subscribe('edge.create', function(href, widget) {
-				var currentPage = jQuery(document).attr('title');
-				ga('send', {
-					'hitType': 'social',
-					'socialNetwork': 'Facebook',
-					'socialAction': 'Like',
-					'socialTarget': href,
-					'page': currentPage
-				});
-				ga('send', 'event', 'Social', 'Facebook Like', currentPage);
-			});
-			
-			//Facebook Unlikes
-			FB.Event.subscribe('edge.remove', function(href, widget) {
-				var currentPage = jQuery(document).attr('title');
-				ga('send', {
-					'hitType': 'social',
-					'socialNetwork': 'Facebook',
-					'socialAction': 'Unlike',
-					'socialTarget': href,
-					'page': currentPage
-				});
-				ga('send', 'event', 'Social', 'Facebook Unlike', currentPage);
-			});
-			
-			//Facebook Send/Share
-			FB.Event.subscribe('message.send', function(href, widget) {
-				var currentPage = jQuery(document).attr('title');
-				ga('send', {
-					'hitType': 'social',
-					'socialNetwork': 'Facebook',
-					'socialAction': 'Send',
-					'socialTarget': href,
-					'page': currentPage
-				});
-				ga('send', 'event', 'Social', 'Facebook Share', currentPage);
-			});
-			
-			//Facebook Comments
-			FB.Event.subscribe('comment.create', function(href, widget) {
-				var currentPage = jQuery(document).attr('title');
-				ga('send', {
-					'hitType': 'social',
-					'socialNetwork': 'Facebook',
-					'socialAction': 'Comment',
-					'socialTarget': href,
-					'page': currentPage
-				});
-				ga('send', 'event', 'Social', 'Facebook Comment', currentPage);
-			});
-				
-		  };
-		 
-		  //Load the SDK asynchronously
-		  (function(d, s, id) {
-		  var js, fjs = d.getElementsByTagName(s)[0];
-		  if (d.getElementById(id)) return;
-		  js = d.createElement(s); js.id = id;
-		  js.src = "//connect.facebook.net/en_GB/all.js";
-		  fjs.parentNode.insertBefore(js, fjs);
-		}(document, 'script', 'facebook-jssdk'));
-		</script>
-				
+		
+		<noscript>
+			<iframe class="hidden" src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/includes/no-js.php?h=<?php echo $GLOBALS['bloginfo']['home_url']; ?>&p=<?php echo $GLOBALS['bloginfo']['permalink']; ?>&t=<?php echo $pageTitle; ?>" width="0" height="0" style="display:none;position:absolute;"></iframe>
+		</noscript>
+		
 		<div id="topbarcon">
-			<div class="container mobilenavcon">
-				<div class="row">
-					<div class="sixteen columns clearfix">
-						
-						<a class="alignleft" href="#mobilenav"><i class="icon-menu"></i></a>
-						<nav id="mobilenav" class="unhideonload hidden">
-							<ul class="menu">
+			<div class="row mobilenavcon">
+				<div class="sixteen columns clearfix">
+					
+					<a class="alignleft" href="#mobilenav"><i class="icon-menu"></i></a>
+					<nav id="mobilenav">
+						<ul class="menu">
 							<li class="menu-item">
-								<a href="#">First Link Here</a>
+								<a href="#">Lorem Ipsum</a>
 								<ul class="sub-menu">
 									<li class="menu-item">
-										<a href="#">First Submenu Link</a>
+										<a href="#">Cras Quis Nunc</a>
 									</li>
 									<li class="menu-item">
-										<a href="#">This is a really long name for a subnav link</a>
-									</li>
-									<li class="menu-item">
-										<a href="#">Another submenu</a>
-										<ul class="sub-menu">
-											<li class="menu-item">
-												<a href="#">Join Our Mission</a>
-											</li>
-											<li class="menu-item">
-												<a href="#">This is a really long name for a subnav link</a>
-											</li>
-										</ul>
-									</li>
-									<li class="menu-item">
-										<a href="#">Third Submenu</a>
+										<a href="#">Feugiat Sit</a>
 									</li>
 								</ul>
 							</li>
 							<li class="menu-item">
-								<a href="#">Second Top Level</a>
-							</li>
-							<li class="menu-item">
-								<a href="#">Third Top</a>
+								<a href="#">Scelerisque</a>
 								<ul class="sub-menu">
 									<li class="menu-item">
-										<a href="#">Another another sub</a>
+										<a href="#">Eget Tincidunt </a>
 									</li>
 									<li class="menu-item">
-										<a href="#">Aaaand one more</a>
+										<a href="#">Donec Nec</a>
+									</li>
+									<li class="menu-item">
+										<a href="#">Semper Lorem Ut</a>
+									</li>
+									<li class="menu-item">
+										<a href="#">Posuere Orci</a>
+									</li>
+									<li class="menu-item">
+										<a href="#">Commodo</a>
 									</li>
 								</ul>
+							</li>
+							<li class="icon menu-item">
+								<a target="_blank" href="https://github.com/chrisblakley/Static-Nebula/archive/master.zip">Download</a>
 							</li>
 						</ul>
-						</nav><!--/mobilenav-->
-						
-						
-						<a class="alignright" href="#mobilecontact"><i class="icon-users"></i></a>
-						<nav id="mobilecontact" class="unhideonload hidden">
-							<ul>
-					    		<li>
-					    			<a href="#"><i class="icon-phone"></i> (315) 123-4567</a>
-					    		</li>
-					    		<li>
-					    			<a href="#"><i class="icon-phone"></i> (800) 456-7890</a>
-					    		</li>
-					    		<li>
-					    			<a href="#"><i class="icon-mail"></i> info@testing.com</a>
-					    		</li>
-					    		<li>
-					    			<a class="directions" href="https://www.google.com/maps/preview?saddr=My+Location&daddr=760+West+Genesee+Street+Syracuse+NY+13204" target="_blank"><i class="icon-direction"></i> Directions <br/><div><small>760 West Genesee Street<br/>Syracuse, NY 13204</small></div></a>
-					    		</li>
-					    	</ul>
-						</nav><!--/mobilecontact-->
-						
-					</div><!--/columns-->
-				</div><!--/row-->
-			</div><!--/container-->
+					</nav><!--/mobilenav-->
+					
+					<a class="alignright" href="#mobilecontact"><i class="icon-users"></i></a>
+					<nav id="mobilecontact" class="unhideonload hidden">
+						<ul>
+				    		<li>
+				    			<a href="tel:<?php echo nebula_phone_format($GLOBALS['info']['phone'], 'tel'); ?>"><i class="icon-phone"></i> <?php echo nebula_phone_format($GLOBALS['info']['phone'], 'human'); ?></a>
+				    		</li>
+				    		<li>
+				    			<a href="mailto:<?php echo $GLOBALS['bloginfo']['admin_email']; ?>" target="_blank"><i class="icon-mail"></i> <?php echo $GLOBALS['bloginfo']['admin_email']; ?></a>
+				    		</li>
+				    		<li>
+				    			<a class="directions" href="https://www.google.com/maps/dir/Current+Location/<?php echo $GLOBALS['info']['enc_address']; ?>" target="_blank"><i class="icon-direction"></i> Directions<br/><div><small><?php echo $GLOBALS['info']['full_address']; //@TODO: Add address here (x2). ?></small></div></a>
+				    		</li>
+				    	</ul>
+					</nav><!--/mobilecontact-->
+					
+				</div><!--/columns-->
+			</div><!--/row-->
 		</div><!--/topbarcon-->
 
-		<div class="container topnavcon">
-			<div class="row">
-				<div class="sixteen columns">
-					<nav id="topnav">
-	        			<ul class="menu">
-							<li class="menu-item">
-								<a href="#">First Link Here</a>
-							</li>
-							<li class="menu-item">
-								<a href="#">Second Top Level</a>
-							</li>
-							<li class="menu-item">
-								<a href="#">Third Top</a>
-							</li>
-						</ul>
-	        		</nav>
-				</div><!--/columns-->
-			</div><!--/row-->
-		</div><!--/container-->
+		<div class="row topnavcon">
+			<div class="sixteen columns">
+				<nav id="topnav">
+        			<ul class="menu">
+        				<li class="w3tc menu-item">
+        					<a target="_blank" href="http://developers.google.com/speed/pagespeed/insights/?url=http://gearside.com/nebula/static-nebula-master">PageSpeed</a>
+							<ul class="sub-menu">
+								<li class="menu-item">
+									<a target="_blank" href="http://tools.pingdom.com/fpt/#!/cdSLLn/http://gearside.com/nebula/static-nebula-master">Pingdom</a>
+								</li>
+								<li class="menu-item">
+									<a target="_blank" href="http://gtmetrix.com/">GTmetrix</a>
+								</li>
+								<li class="menu-item">
+									<a target="_blank" href="http://www.webpagetest.org/">WebPageTest</a>
+								</li>
+							</ul>
+						</li>
+						<li class="menu-item">
+							<a target="_blank" href="https://github.com/chrisblakley/Static-Nebula">GitHub</a>
+						</li>
+						<li class="menu-item">
+							<a target="_blank" href="https://github.com/chrisblakley/Static-Nebula/commits/master">Changelog</a>
+						</li>
+						<li class="menu-item">
+							<a target="_blank" href="https://github.com/chrisblakley/Static-Nebula/issues?direction=desc&amp;page=1&amp;sort=updated&amp;state=open">Issues</a>
+						</li>
+						<li class="nebula-search menu-item">
+							<form class="search" method="get" action="http://gearside.com/nebula/">
+								<input type="search" class="input search" name="s" placeholder="Search" x-webkit-speech="x-webkit-speech">
+							</form>
+						</li>
+					</ul>
+				</nav>
+			</div><!--/columns-->
+		</div><!--/row-->
 		
-		
-		
-		<div id="logonavcon" class="container">
-			<div class="row">
-				<div class="six columns">
-					<?php //@TODO: Logo should have at least two versions: logo.svg and logo.png - Save them out in the images directory then update the paths (and alt text) below. Important: Do not delete the /phg/ directory from the server. We use our logo in the WP Admin, so it needs to remain. ?>
-					<a class="logocon" href="/"><img src="images/logo.svg" onerror="this.onerror=null; this.src='images/logo.png'" alt="Pinckney Hugo Group"/></a>
-				</div><!--/columns-->
-				<div class="ten columns">
-					<nav id="mainnav" class="clearfix">
-	        			<ul class="menu">
-							<li class="menu-item">
-								<a href="#">First Link Here</a>
-								<ul class="sub-menu">
-									<li class="menu-item">
-										<a href="#">First Submenu Link</a>
-									</li>
-									<li class="menu-item">
-										<a href="#">This is a really long name for a subnav link</a>
-									</li>
-									<li class="menu-item">
-										<a href="#">Another submenu</a>
-										<ul class="sub-menu">
-											<li class="menu-item">
-												<a href="#">Join Our Mission</a>
-											</li>
-											<li class="menu-item">
-												<a href="#">This is a really long name for a subnav link</a>
-											</li>
-										</ul>
-									</li>
-									<li class="menu-item">
-										<a href="#">Third Submenu</a>
-									</li>
-								</ul>
-							</li>
-							<li class="menu-item">
-								<a href="#">Second Top Level</a>
-							</li>
-							<li class="menu-item">
-								<a href="#">Third Top</a>
-								<ul class="sub-menu">
-									<li class="menu-item">
-										<a href="#">Another another sub</a>
-									</li>
-									<li class="menu-item">
-										<a href="#">Aaaand one more</a>
-									</li>
-								</ul>
-							</li>
-						</ul>
-	        		</nav>
-	        	</div><!--/columns-->
-			</div><!--/row-->
-		</div><!--/container-->
+		<div id="logonavcon" class="row">
+			<div class="six columns">
+				<?php
+					//@TODO: Logo should have at least two versions: logo.svg and logo.png - Save them out in the images directory then update the paths below.
+					//Important: Do not delete the /phg/ directory from the server; we use our logo in the WP Admin!
+				?>
+				<a class="logocon" href="<?php echo $GLOBALS['bloginfo']['home_url']; ?>">
+					<img src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/images/logo.svg" onerror="this.onerror=null; this.src='<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/images/logo.png'" alt="<?php echo $GLOBALS['bloginfo']['name']; ?>"/>
+				</a>
+			</div><!--/columns-->
+			<div class="ten columns">
+				<nav id="primarynav" class="clearfix">
+					<ul class="menu">
+						<li class="menu-item">
+							<a href="#">Lorem Ipsum</a>
+							<ul class="sub-menu">
+								<li class="menu-item">
+									<a href="#">Cras Quis Nunc</a>
+								</li>
+								<li class="menu-item">
+									<a href="#">Feugiat Sit</a>
+								</li>
+							</ul>
+						</li>
+						<li class="menu-item">
+							<a href="#">Scelerisque</a>
+							<ul class="sub-menu">
+								<li class="menu-item">
+									<a href="#">Eget Tincidunt </a>
+								</li>
+								<li class="menu-item">
+									<a href="#">Donec Nec</a>
+								</li>
+								<li class="menu-item">
+									<a href="#">Semper Lorem Ut</a>
+								</li>
+								<li class="menu-item">
+									<a href="#">Posuere Orci</a>
+								</li>
+								<li class="menu-item">
+									<a href="#">Commodo</a>
+								</li>
+							</ul>
+						</li>
+						<li class="icon menu-item">
+							<a target="_blank" href="https://github.com/chrisblakley/Static-Nebula/archive/master.zip">Download</a>
+						</li>
+					</ul>
+				</nav>
+        	</div><!--/columns-->
+		</div><!--/row-->
 		
 		<div class="container fixedbar" style="position: fixed; top: 0; left: 0; z-index: 9999;">
 			<div class="row">
-				<div class="three columns">
-					<a href="/"><i class="icon-home"></i><?php echo $title; ?></a>
-				</div>
-			</div>
-		</div>
+				<div class="four columns">
+					<a href="<?php echo $GLOBALS['bloginfo']['home_url']; ?>"><i class="icon-home"></i> <?php echo $GLOBALS['bloginfo']['name']; ?></a>
+				</div><!--/columns-->
+				<div class="twelve columns">
+					<nav id="fixednav">
+						<ul class="menu">
+						<li class="menu-item">
+							<a href="#">Lorem Ipsum</a>
+							<ul class="sub-menu">
+								<li class="menu-item">
+									<a href="#">Cras Quis Nunc</a>
+								</li>
+								<li class="menu-item">
+									<a href="#">Feugiat Sit</a>
+								</li>
+							</ul>
+						</li>
+						<li class="menu-item">
+							<a href="#">Scelerisque</a>
+							<ul class="sub-menu">
+								<li class="menu-item">
+									<a href="#">Eget Tincidunt </a>
+								</li>
+								<li class="menu-item">
+									<a href="#">Donec Nec</a>
+								</li>
+								<li class="menu-item">
+									<a href="#">Semper Lorem Ut</a>
+								</li>
+								<li class="menu-item">
+									<a href="#">Posuere Orci</a>
+								</li>
+								<li class="menu-item">
+									<a href="#">Commodo</a>
+								</li>
+							</ul>
+						</li>
+						<li class="icon menu-item">
+							<a target="_blank" href="https://github.com/chrisblakley/Static-Nebula/archive/master.zip">Download</a>
+						</li>
+					</ul>
+	        		</nav>
+				</div><!--/columns-->
+			</div><!--/row-->
+		</div><!--/container-->
