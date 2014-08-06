@@ -1,4 +1,4 @@
-<?php require_once('functions.php'); ?>
+<?php require_once('includes/functions.php'); ?>
 
 <!DOCTYPE html>
 <!--[if lt IE 7 ]><html lang="en" class="no-js ie ie6 lt-ie7 lte-ie7 lt-ie8 lte-ie8 lt-ie9 lte-ie9 lt-ie10"><![endif]-->
@@ -56,8 +56,8 @@
 		
 		<!-- Facebook Metadata -->
 		<?php $GLOBALS['social']['facebook_url'] = 'https://www.facebook.com/PinckneyHugo'; //@TODO: Enter the URL of the Facebook page here. ?>
-		<?php $GLOBALS['social']['facebook_app_id'] = ''; //@TODO: Enter Facebook App ID. Instructions: http://smashballoon.com/custom-facebook-feed/access-token/ ?>
-		<?php $GLOBALS['social']['facebook_access_token'] = ''; //@TODO: Enter Facebook Access Token. This only stored in PHP for reference. Do NOT share or store in browser-facing code. ?>
+		<?php $GLOBALS['social']['facebook_app_id'] = '458455517547328'; //@TODO: Enter Facebook App ID. Instructions: http://smashballoon.com/custom-facebook-feed/access-token/ ?>
+		<?php $GLOBALS['social']['facebook_access_token'] = '458455517547328|023wxiibt5hs3OYGl6JuBrq58fI'; //@TODO: Enter Facebook Access Token. This only stored in PHP for reference. Do NOT share or store in browser-facing code. ?>
 		<meta property="fb:page_id" content="" /><!-- @TODO: Remove this line if not related to a FB Page. -->
 		<meta property="fb:admins" content="" /><!-- @TODO: Comma separated IDs of FB admins. Ex: "1234,2345,3456" -->
 				
@@ -125,7 +125,7 @@
 				m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 		
-			ga('create', '<?php echo $GLOBALS['ga'] = 'UA-000000-1'; ?>', 'auto'); <?php //@TODO: Change Tracking ID here! ?>
+			ga('create', '<?php echo $GLOBALS['ga'] = 'UA-00000000-1'; ?>', 'auto'); <?php //@TODO: Change Tracking ID here! ?>
 			ga('send', 'pageview');
 		</script>
 		
