@@ -5,7 +5,7 @@
 
 $GLOBALS['bloginfo']['name'] = 'Static Nebula';
 $GLOBALS['bloginfo']['home_url'] = 'http://gearside.com/nebula/Static-Nebula-master';
-$GLOBALS['bloginfo']['template_directory'] = rtrim('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], '/');
+$GLOBALS['bloginfo']['template_directory'] = rtrim('http://' . $_SERVER['HTTP_HOST'] . strtok($_SERVER["REQUEST_URI"],'?'), '/');
 $GLOBALS['bloginfo']['admin_email'] = 'chris@gearside.com';
 
 //Control how scripts are loaded, and force clear cache for debugging
