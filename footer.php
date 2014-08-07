@@ -72,7 +72,7 @@
 			
 			
 			
-			<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js" <?php echo $GLOBALS["async"]; ?>></script>
+			<!-- <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js" <?php echo $GLOBALS["async"]; ?>></script> -->
 			<!-- <script src="//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js" <?php echo $GLOBALS["async"]; ?>></script> -->
 			<!-- @TODO: hoverIntent -->
 			
@@ -81,7 +81,7 @@
 			
 			<!-- <script src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/libs/supplementr.js" <?php echo $GLOBALS["async"]; ?>></script> -->
 			<!-- <script src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/libs/cssbs.js" <?php echo $GLOBALS["async"]; ?>></script> --> <!-- @TODO: Check this is the updated css_browser_selector.js -->
-			<script <?php echo $GLOBALS["gumby_debug"]; ?> src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/libs/gumby.js" <?php echo $GLOBALS["defer"]; ?>></script>
+			<script <?php echo $GLOBALS["gumby_debug"]; ?> src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/libs/gumby.js" <?php echo $GLOBALS["defer"]; ?>></script> <?php //@TODO: Change this to gumby.min.js and fix the "Uncaught TypeError: undefined is not a function" ?>
 			<script src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/main.js" <?php echo $GLOBALS["defer"]; ?>></script>
 			
 			<?php if ( 1==2 ) : //If page that uses DataTables ?>

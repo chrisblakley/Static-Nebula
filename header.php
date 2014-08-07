@@ -56,8 +56,8 @@
 		
 		<!-- Facebook Metadata -->
 		<?php $GLOBALS['social']['facebook_url'] = 'https://www.facebook.com/PinckneyHugo'; //@TODO: Enter the URL of the Facebook page here. ?>
-		<?php $GLOBALS['social']['facebook_app_id'] = ''; //@TODO: Enter Facebook App ID. Instructions: http://smashballoon.com/custom-facebook-feed/access-token/ ?>
-		<?php $GLOBALS['social']['facebook_access_token'] = ''; //@TODO: Enter Facebook Access Token. This only stored in PHP for reference. Do NOT share or store in browser-facing code. ?>
+		<?php $GLOBALS['social']['facebook_app_id'] = '0000000000000'; //@TODO: Enter Facebook App ID. Instructions: http://smashballoon.com/custom-facebook-feed/access-token/ ?>
+		<?php $GLOBALS['social']['facebook_access_token'] = '00000000000000|00000000000000000000000000'; //@TODO: Enter Facebook Access Token. This only stored in PHP for reference. Do NOT share or store in browser-facing code. ?>
 		<meta property="fb:page_id" content="" /><!-- @TODO: Remove this line if not related to a FB Page. -->
 		<meta property="fb:admins" content="" /><!-- @TODO: Comma separated IDs of FB admins. Ex: "1234,2345,3456" -->
 				
@@ -107,7 +107,7 @@
 		<script>window.jQuery || document.write('<script src="js/libs/jquery-1.10.1.min.js"><\/script>')</script>
 		
 		<script type='text/javascript' src="js/libs/modernizr.custom.64172.js"></script>
-		<!-- <script type='text/javascript' src="js/libs/modernizr.min.js"></script> @TODO: Switch to this modernizr when launching (if not using advanced polyfills) -->
+		<!-- <script type='text/javascript' src="js/libs/modernizr.min.js"></script> --> <?php //@TODO: Switch to this modernizr when launching (if not using advanced polyfills) ?>
 		
 		<?php if ( 1==2 ) : //If page that uses Google Maps ?>
 			<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=weather"></script>
