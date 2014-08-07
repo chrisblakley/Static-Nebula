@@ -1,4 +1,4 @@
-<?php require_once('includes/functions.php'); ?>
+<?php require_once('functions.php'); ?>
 
 <!DOCTYPE html>
 <!--[if lt IE 7 ]><html lang="en" class="no-js ie ie6 lt-ie7 lte-ie7 lt-ie8 lte-ie8 lt-ie9 lte-ie9 lt-ie10"><![endif]-->
@@ -40,8 +40,8 @@
 		<meta property="og:image" content="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/images/og-thumb1.png" /> <!-- @TODO: Create at least one new thumbnail. Minimum Size: 560x560px with a 246px tall safezone in the center. Use og-temp.png as a template. -->
     	<meta property="og:image" content="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/images/og-thumb2.png" /> <!-- @TODO: Create at least one new thumbnail. Minimum Size: 560x560px with a 246px tall safezone in the center. Use og-temp.png as a template. -->
 		<meta property="og:email" content="<?php echo $GLOBALS['bloginfo']['admin_email']; ?>" />
-		<meta property="og:phone_number" content="+<?php echo $GLOBALS['info']['phone'] = ''; ?>" /> <!-- Ex: "1-315-478-6700" -->
-		<meta property="og:fax_number" content="+<?php echo $GLOBALS['info']['fax'] = ''; ?>" /> <!-- Ex: "1-315-478-6700" -->
+		<meta property="og:phone_number" content="+<?php echo $GLOBALS['info']['phone'] = '1-315-478-6700'; ?>" /> <!-- Ex: "1-315-478-6700" -->
+		<meta property="og:fax_number" content="+<?php echo $GLOBALS['info']['fax'] = '1-315-426-1392'; ?>" /> <!-- Ex: "1-315-478-6700" -->
 		<meta property="og:latitude" content="<?php echo $GLOBALS['info']['latitude'] = ''; ?>" />
 		<meta property="og:longitude" content="<?php echo $GLOBALS['info']['longitude'] = ''; ?>" />
 		<meta property="og:street-address" content="<?php echo $GLOBALS['info']['street_address'] = '760 West Genesee Street'; ?>" />
@@ -56,8 +56,8 @@
 		
 		<!-- Facebook Metadata -->
 		<?php $GLOBALS['social']['facebook_url'] = 'https://www.facebook.com/PinckneyHugo'; //@TODO: Enter the URL of the Facebook page here. ?>
-		<?php $GLOBALS['social']['facebook_app_id'] = '00000000000000'; //@TODO: Enter Facebook App ID. Instructions: http://smashballoon.com/custom-facebook-feed/access-token/ ?>
-		<?php $GLOBALS['social']['facebook_access_token'] = '00000000000000|00000000000000000000000000'; //@TODO: Enter Facebook Access Token. This only stored in PHP for reference. Do NOT share or store in browser-facing code. ?>
+		<?php $GLOBALS['social']['facebook_app_id'] = ''; //@TODO: Enter Facebook App ID. Instructions: http://smashballoon.com/custom-facebook-feed/access-token/ ?>
+		<?php $GLOBALS['social']['facebook_access_token'] = ''; //@TODO: Enter Facebook Access Token. This only stored in PHP for reference. Do NOT share or store in browser-facing code. ?>
 		<meta property="fb:page_id" content="" /><!-- @TODO: Remove this line if not related to a FB Page. -->
 		<meta property="fb:admins" content="" /><!-- @TODO: Comma separated IDs of FB admins. Ex: "1234,2345,3456" -->
 				
@@ -125,7 +125,7 @@
 				m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 		
-			ga('create', '<?php echo $GLOBALS['ga'] = 'UA-00000000-1'; ?>', 'auto'); <?php //@TODO: Change Tracking ID here! ?>
+			ga('create', '<?php echo $GLOBALS['ga'] = 'UA-000000-1'; ?>', 'auto'); <?php //@TODO: Change Tracking ID here! ?>
 			ga('send', 'pageview');
 		</script>
 		
@@ -216,10 +216,10 @@
 				<nav id="topnav">
         			<ul class="menu">
         				<li class="w3tc menu-item">
-        					<a target="_blank" href="http://developers.google.com/speed/pagespeed/insights/?url=http://gearside.com/nebula/static-nebula-master">PageSpeed</a>
+        					<a target="_blank" href="http://developers.google.com/speed/pagespeed/insights/?url=http://gearside.com/nebula/Static-Nebula-master/">PageSpeed</a>
 							<ul class="sub-menu">
 								<li class="menu-item">
-									<a target="_blank" href="http://tools.pingdom.com/fpt/#!/cdSLLn/http://gearside.com/nebula/static-nebula-master">Pingdom</a>
+									<a target="_blank" href="http://tools.pingdom.com/fpt/#!/cdSLLn/http://gearside.com/nebula/Static-Nebula-master/">Pingdom</a>
 								</li>
 								<li class="menu-item">
 									<a target="_blank" href="http://gtmetrix.com/">GTmetrix</a>
@@ -237,6 +237,9 @@
 						</li>
 						<li class="menu-item">
 							<a target="_blank" href="https://github.com/chrisblakley/Static-Nebula/issues?direction=desc&amp;page=1&amp;sort=updated&amp;state=open">Issues</a>
+						</li>
+						<li class="menu-item">
+							<a target="_blank" href="http://gearside.com/nebula/">Wordpress Nebula</a>
 						</li>
 						<li class="nebula-search menu-item">
 							<form class="search" method="get" action="http://gearside.com/nebula/">
@@ -262,10 +265,10 @@
 				<nav id="primarynav" class="clearfix">
 					<ul class="menu">
 						<li class="menu-item">
-							<a href="#">Lorem Ipsum</a>
+							<a href="page.php">Page Template</a>
 							<ul class="sub-menu">
 								<li class="menu-item">
-									<a href="#">Cras Quis Nunc</a>
+									<a href="tpl-fullwidth.php">Full Width</a>
 								</li>
 								<li class="menu-item">
 									<a href="#">Feugiat Sit</a>

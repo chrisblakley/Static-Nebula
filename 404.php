@@ -3,7 +3,11 @@
 <div class="row">
 	
 	<div class="eleven columns">
-		<?php //the_breadcrumb(); ?>
+		<div id="bcrumbs">
+			<nav class="breadcrumbs">
+				<a href="<?php echo $GLOBALS['home_url']; ?>"><i class="fa fa-home"></i></a> <span class="arrow">›</span> <span class="current">404: Not Found</span>
+			</nav>
+		</div><!--/bcrumbs-->
 		<article id="post-0" class="post error404 not-found" role="main">
 			<h1>Not Found</h1>
 			<p>The page you requested could not be found.</p>

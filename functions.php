@@ -3,14 +3,11 @@
  * Functions
  */
 
-$secureServer = 'http://';
-if ( (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443 ) {
-	$secureServer = 'https://';
-}
+$protocol = ( (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443 ) ? 'https://' : 'http://';
 
 $GLOBALS['bloginfo']['name'] = 'Static Nebula';
 $GLOBALS['bloginfo']['home_url'] = 'http://gearside.com/nebula/Static-Nebula-master';
-$GLOBALS['bloginfo']['template_directory'] = rtrim($secureServer . $_SERVER['HTTP_HOST'] . strtok($_SERVER["REQUEST_URI"],'?'), '/');
+$GLOBALS['bloginfo']['template_directory'] = rtrim($protocol . $_SERVER['HTTP_HOST'] . str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']), '/');
 $GLOBALS['bloginfo']['admin_email'] = 'chris@gearside.com';
 
 //Control how scripts are loaded, and force clear cache for debugging

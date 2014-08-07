@@ -70,16 +70,7 @@
 			
 			</div><!--/footer-->
 			
-			<script type="text/javascript">
-				//Load the SDK asynchronously
-				(function(d, s, id) {
-					var js, fjs = d.getElementsByTagName(s)[0];
-					if (d.getElementById(id)) return;
-					js = d.createElement(s); js.id = id;
-					js.src = "//connect.facebook.net/en_GB/all.js";
-					fjs.parentNode.insertBefore(js, fjs);
-				}(document, 'script', 'facebook-jssdk'));
-			</script>
+			
 			
 			<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js" <?php echo $GLOBALS["async"]; ?>></script>
 			<!-- <script src="//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js" <?php echo $GLOBALS["async"]; ?>></script> -->
@@ -94,17 +85,18 @@
 			<script src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/main.js" <?php echo $GLOBALS["defer"]; ?>></script>
 			
 			<?php if ( 1==2 ) : //If page that uses DataTables ?>
-				<script src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/libs/jquery.dataTables.min.js"></script>
+				<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=weather"></script>
 			<?php endif; ?>
 			
 			<?php if ( 1==2 ) : //If page that uses Twitter Feed ?>
-				<script src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/libs/twitter.js"></script>
+				<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=weather"></script>
 			<?php endif; ?>
 			
 			<?php if ( $GLOBALS["debug"] ) : ?>
-				<script src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/libs/performance-timing.js" <?php echo $GLOBALS["async"]; ?>></script>
+				<script src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/performance-timing.js" <?php echo $GLOBALS["async"]; ?>></script>
 			<?php endif; ?>
 			
+						
 			<script>
 				//Capture Print Intent
 				try { (function() {
@@ -123,7 +115,19 @@
 					}());
 				} catch(e) {}
 			</script>
-						
+				
+			<script type="text/javascript">
+				//Load the SDK asynchronously
+				(function(d, s, id) {
+					var js, fjs = d.getElementsByTagName(s)[0];
+					if (d.getElementById(id)) return;
+					js = d.createElement(s); js.id = id;
+					js.src = "//connect.facebook.net/en_GB/all.js";
+					fjs.parentNode.insertBefore(js, fjs);
+				}(document, 'script', 'facebook-jssdk'));
+			</script>
+			
+			
 			<!-- <script src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/libs/froogaloop.min.js" <?php echo $GLOBALS["defer"]; ?>></script> --><!-- @TODO: Only call this script if vimeoplayer exists! -->
 	        <script>
 	            if ( jQuery('.vimeoplayer').length ) {
