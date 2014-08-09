@@ -74,22 +74,22 @@
 			
 			<!-- <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js" <?php echo $GLOBALS["async"]; ?>></script> -->
 			<!-- <script src="//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js" <?php echo $GLOBALS["async"]; ?>></script> -->
-			<!-- @TODO: hoverIntent -->
+			<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.hoverintent/2013.03.11/hoverintent.min.js" <?php echo $GLOBALS["defer"]; ?>></script> -->
 			
-			<script src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/libs/jquery.mmenu.min.all.js"></script>
+			<script src="//cdnjs.cloudflare.com/ajax/libs/jQuery.mmenu/4.3.2/js/umd/jquery.mmenu.umd.all.min.js"></script>
 			<!-- <script src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/libs/doubletaptogo.js" <?php echo $GLOBALS["defer"]; ?>></script> -->
 			
 			<!-- <script src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/libs/supplementr.js" <?php echo $GLOBALS["async"]; ?>></script> -->
 			<!-- <script src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/libs/cssbs.js" <?php echo $GLOBALS["async"]; ?>></script> --> <!-- @TODO: Check this is the updated css_browser_selector.js -->
-			<script <?php echo $GLOBALS["gumby_debug"]; ?> src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/libs/gumby.js" <?php echo $GLOBALS["defer"]; ?>></script> <?php //@TODO: Change this to gumby.min.js and fix the "Uncaught TypeError: undefined is not a function" ?>
+			<script <?php echo $GLOBALS["gumby_debug"]; ?> src="//cdnjs.cloudflare.com/ajax/libs/gumby/2.6.0/js/libs/gumby.min.js" <?php echo $GLOBALS["defer"]; ?>></script> <?php //@TODO: Change this to gumby.min.js and fix the "Uncaught TypeError: undefined is not a function" ?>
 			<script src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/main.js" <?php echo $GLOBALS["defer"]; ?>></script>
 			
 			<?php if ( 1==2 ) : //If page that uses DataTables ?>
-				<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=weather"></script>
+				<script src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.1/js/jquery.dataTables.min.js" <?php echo $GLOBALS["defer"]; ?>></script>
 			<?php endif; ?>
 			
 			<?php if ( 1==2 ) : //If page that uses Twitter Feed ?>
-				<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=weather"></script>
+				<script src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/libs/twitter.js" <?php echo $GLOBALS["defer"]; ?>></script>
 			<?php endif; ?>
 			
 			<?php if ( $GLOBALS["debug"] ) : ?>

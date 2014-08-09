@@ -22,11 +22,11 @@
 		
 		<link rel="profile" href="http://gmpg.org/xfn/11" />
 		
-		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" />
-		<link rel="stylesheet" href="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/css/normalize.css" />
+		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,700" />
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css" />
 		<link rel="stylesheet" href="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/css/gumby.css" />
-		<link rel="stylesheet" href="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/css/font-awesome.min.css" />
-		<link rel="stylesheet" href="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/css/jquery.mmenu.all.css" /> <!-- @TODO: Remove if not using mmenu! -->
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jQuery.mmenu/4.3.2/css/jquery.mmenu.all.min.css" /> <!-- @TODO: Remove if not using mmenu! -->
 		<link rel="stylesheet" href="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/style.css" />
         		
 		<link rel="icon" href="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/images/favicon.ico">
@@ -35,7 +35,7 @@
 		<!-- Open Graph Metadata -->
 		<?php //Check that all Open Graph data is working: https://developers.facebook.com/tools/debug ?>
 		<meta property="og:title" content="<?php echo $GLOBALS['bloginfo']['name']; ?>" />
-		<meta property="og:url" content="<?php echo $GLOBALS['bloginfo']['permalink'] = ''; ?>" />
+		<meta property="og:url" content="<?php echo $GLOBALS['bloginfo']['permalink']; ?>" />
 		<meta property="og:description" content="<?php echo $GLOBALS['meta']['description']; ?>" />
 		<meta property="og:image" content="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/images/og-thumb1.png" /> <!-- @TODO: Create at least one new thumbnail. Minimum Size: 560x560px with a 246px tall safezone in the center. Use og-temp.png as a template. -->
     	<meta property="og:image" content="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/images/og-thumb2.png" /> <!-- @TODO: Create at least one new thumbnail. Minimum Size: 560x560px with a 246px tall safezone in the center. Use og-temp.png as a template. -->
@@ -106,8 +106,8 @@
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<script>window.jQuery || document.write('<script src="js/libs/jquery-1.10.1.min.js"><\/script>')</script>
 		
-		<script type='text/javascript' src="js/libs/modernizr.custom.64172.js"></script>
-		<!-- <script type='text/javascript' src="js/libs/modernizr.min.js"></script> --> <?php //@TODO: Switch to this modernizr when launching (if not using advanced polyfills) ?>
+		<!-- <script type='text/javascript' src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/libs/modernizr.custom.64172.js"></script> -->
+		<script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.min.js"></script>
 		
 		<?php if ( 1==2 ) : //If page that uses Google Maps ?>
 			<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=weather"></script>
@@ -115,8 +115,8 @@
 		
 		<!--[if lt IE 9]>
 			<script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
-			<script src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/libs/html5shiv.js"></script>
-			<script src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/libs/respond.js"></script>
+			<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
 		
 		<script> //Universal Analytics
