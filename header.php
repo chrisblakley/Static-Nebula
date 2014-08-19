@@ -57,6 +57,36 @@
 			$GLOBALS['info']['enc_address'] = str_replace(array(' ', ','), array('+', ''), $GLOBALS['info']['full_address']);
 		?>
 		
+		<?php //Business hours of operation. Times should be in the format "5:30 pm" or "17:30". ?>
+		<meta property="business:hours:day" content="sunday" />
+		<meta property="business:hours:start" content="11:00 am" />
+		<meta property="business:hours:end" content="6:00 pm" />
+		
+		<meta property="business:hours:day" content="monday" />
+		<meta property="business:hours:start" content="10:00 am" />
+		<meta property="business:hours:end" content="9:30 pm" />
+		
+		<meta property="business:hours:day" content="tuesday" />
+		<meta property="business:hours:start" content="10:00 am" />
+		<meta property="business:hours:end" content="9:30 pm" />
+		
+		<meta property="business:hours:day" content="wednesday" />
+		<meta property="business:hours:start" content="10:00 am" />
+		<meta property="business:hours:end" content="9:30 pm" />
+		
+		<meta property="business:hours:day" content="thursday" />
+		<meta property="business:hours:start" content="10:00 am" />
+		<meta property="business:hours:end" content="9:30 pm" />
+		
+		<meta property="business:hours:day" content="friday" />
+		<meta property="business:hours:start" content="10:00 am" />
+		<meta property="business:hours:end" content="9:30 pm" />
+		
+		<meta property="business:hours:day" content="saturday" />
+		<meta property="business:hours:start" content="10:00 am" />
+		<meta property="business:hours:end" content="9:30 pm" />
+		
+		
 		<!-- Facebook Metadata -->
 		<?php $GLOBALS['social']['facebook_url'] = 'https://www.facebook.com/PinckneyHugo'; //@TODO: Enter the URL of the Facebook page here. ?>
 		<?php $GLOBALS['social']['facebook_app_id'] = '0000000000000'; //@TODO: Enter Facebook App ID. Instructions: http://smashballoon.com/custom-facebook-feed/access-token/ ?>
