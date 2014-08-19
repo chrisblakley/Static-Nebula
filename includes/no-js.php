@@ -1,5 +1,5 @@
 <?php
-	require_once('../../../../wp-load.php');
+	require_once('../functions.php');
 	
 	$data = array(
 		'v' => 1,
