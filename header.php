@@ -34,21 +34,24 @@
 		
 		<!-- Open Graph Metadata -->
 		<?php //Check that all Open Graph data is working: https://developers.facebook.com/tools/debug ?>
+		<meta property="og:type" content="business.business" />
 		<meta property="og:title" content="<?php echo $GLOBALS['bloginfo']['name']; ?>" />
 		<meta property="og:url" content="<?php echo $GLOBALS['bloginfo']['permalink']; ?>" />
 		<meta property="og:description" content="<?php echo $GLOBALS['meta']['description']; ?>" />
-		<meta property="og:image" content="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/images/og-thumb1.png" /> <!-- @TODO: Create at least one new thumbnail. Minimum Size: 560x560px with a 246px tall safezone in the center. Use og-temp.png as a template. -->
-    	<meta property="og:image" content="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/images/og-thumb2.png" /> <!-- @TODO: Create at least one new thumbnail. Minimum Size: 560x560px with a 246px tall safezone in the center. Use og-temp.png as a template. -->
-		<meta property="og:email" content="<?php echo $GLOBALS['bloginfo']['admin_email']; ?>" />
-		<meta property="og:phone_number" content="+<?php echo $GLOBALS['info']['phone'] = '1-315-478-6700'; ?>" /> <!-- Ex: "1-315-478-6700" -->
-		<meta property="og:fax_number" content="+<?php echo $GLOBALS['info']['fax'] = '1-315-426-1392'; ?>" /> <!-- Ex: "1-315-478-6700" -->
-		<meta property="og:latitude" content="<?php echo $GLOBALS['info']['latitude'] = ''; ?>" />
-		<meta property="og:longitude" content="<?php echo $GLOBALS['info']['longitude'] = ''; ?>" />
-		<meta property="og:street-address" content="<?php echo $GLOBALS['info']['street_address'] = '760 West Genesee Street'; ?>" />
-		<meta property="og:locality" content="<?php echo $GLOBALS['info']['locality'] = 'Syracuse'; ?>" /> <!-- City -->
-		<meta property="og:region" content="<?php echo $GLOBALS['info']['region'] = 'NY'; ?>" /> <!-- State -->
-		<meta property="og:postal-code" content="<?php echo $GLOBALS['info']['postal_code'] = '13204'; ?>" />
-		<meta property="og:country-name" content="<?php echo $GLOBALS['info']['country'] = 'USA'; ?>" /> <!-- USA -->
+		<!-- @TODO: Create at least one OG Thumbnail. Minimum Size: 560x560px with a 246px tall safezone in the center. Use og-temp.png as a template (Use PNG to avoid compression artifacts!). -->
+		<meta property="og:image" content="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/images/og-thumb.png" />
+    		<meta property="og:image" content="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/images/og-thumb2.png" />
+		<meta property="business:contact_data:website" content="<?php echo $GLOBALS['bloginfo']['home_url']; ?>" />
+		<meta property="business:contact_data:email" content="<?php echo $GLOBALS['bloginfo']['admin_email']; ?>" />
+		<meta property="business:contact_data:phone_number" content="+<?php echo $GLOBALS['info']['phone'] = '1-315-478-6700'; ?>" /> <!-- Ex: "1-315-478-6700" -->
+		<meta property="business:contact_data:fax_number" content="+<?php echo $GLOBALS['info']['fax'] = '1-315-426-1392'; ?>" /> <!-- Ex: "1-315-478-6700" -->
+		<meta property="business:contact_data:street_address" content="<?php echo $GLOBALS['info']['street_address'] = '760 West Genesee Street'; ?>" />
+		<meta property="business:contact_data:locality" content="<?php echo $GLOBALS['info']['locality'] = 'Syracuse'; ?>" /> <!-- City -->
+		<meta property="business:contact_data:region" content="<?php echo $GLOBALS['info']['region'] = 'NY'; ?>" /> <!-- State -->
+		<meta property="business:contact_data:postal_code" content="<?php echo $GLOBALS['info']['postal_code'] = '13204'; ?>" />
+		<meta property="business:contact_data:country_name" content="<?php echo $GLOBALS['info']['country'] = 'USA'; ?>" /> <!-- USA -->
+		<meta property="place:location:latitude" content="<?php echo $GLOBALS['info']['latitude'] = ''; ?>" />
+		<meta property="place:location:longitude" content="<?php echo $GLOBALS['info']['longitude'] = ''; ?>" />
 		<?php
 			$GLOBALS['info']['full_address'] = $GLOBALS['info']['street_address'] . ', ' . $GLOBALS['info']['locality'] . ', ' . $GLOBALS['info']['region'] . ' ' . $GLOBALS['info']['postal_code'];
 			$GLOBALS['info']['enc_address'] = str_replace(array(' ', ','), array('+', ''), $GLOBALS['info']['full_address']);
