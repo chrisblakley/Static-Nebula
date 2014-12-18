@@ -1,33 +1,20 @@
 <?php
-	require_once('../functions.php');
-	
-	$data = array(
-		'v' => 1,
-		'tid' => $GLOBALS['ga'],
-		'cid' => gaParseCookie(),
-		't' => 'pageview',
-		'dh' => $_GET['h'], //Document Hostname "gearside.com"
-		'dp' => $_GET['p'], //Page "/something"
-		'dt' => $_GET['t'] //Title
-	);
-	gaSendData($data);
-	
-	//echo '<br/><br/>Pageview: <br/>';
-	//var_dump($data);
-	//echo '<br/><br/>';
-	
-	$data = array(
-		'v' => 1,
-		'tid' => $GLOBALS['ga'],
-		'cid' => gaParseCookie(),
-		't' => 'event',
-		'ec' => 'JavaScript Disabled', //Category (Required)
-		'ea' => $_GET['t'], //Action (Required)
-		//'el' => 'label' //Label (browser info here)
-	);
-	gaSendData($data);
-	
-	//echo '<br/><br/>Event: <br/>';
-	//var_dump($data);
-	//echo '<br/><br/>';
+	if ( file_exists('../functions.php') ) {
+
+		require_once('../functions.php');
+
+		/*
+			$_GET['h'] is home_url('/');
+			$_GET['p'] is nebula_url_components('all');
+			$_GET['t'] is urlencode(get_the_title($post->ID));
+		*/
+
+		ga_send_pageview($_GET['h'], $_GET['p'], $_GET['t']);
+		ga_send_event('JavaScript Disabled', $_SERVER['HTTP_USER_AGENT'], $_GET['t']);
+
+		//Parse detected User Agents here: http://udger.com/resources/online-parser
+
+	} else {
+		die('File does not exist.');
+	}
 ?>

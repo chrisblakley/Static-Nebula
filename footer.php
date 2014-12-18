@@ -4,9 +4,9 @@
  */
 ?>
 			<hr class="zero" style="margin-top: 30px;"/>
-			
+
 			<div class="footer">
-							
+
 					<div class="container footerlinks">
 						<div class="row powerfootercon">
 							<div class="sixteen columns">
@@ -51,7 +51,7 @@
 							</div><!--/columns-->
 						</div><!--/row-->
 					</div><!--/container-->
-					
+
 					<div class="container copyright">
 						<div class="row">
 							<div class="eleven columns ">
@@ -67,114 +67,66 @@
 							</div><!--/columns-->
 						</div><!--/row-->
 					</div><!--/container-->
-			
+
 			</div><!--/footer-->
-			
-			
-			
+
+
+
 			<!-- <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js" <?php echo $GLOBALS["async"]; ?>></script> -->
 			<!-- <script src="//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js" <?php echo $GLOBALS["async"]; ?>></script> -->
 			<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.hoverintent/2013.03.11/hoverintent.min.js" <?php echo $GLOBALS["defer"]; ?>></script> -->
-			
+
 			<script src="//cdnjs.cloudflare.com/ajax/libs/jQuery.mmenu/4.3.2/js/umd/jquery.mmenu.umd.all.min.js"></script>
 			<!-- <script src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/libs/doubletaptogo.js" <?php echo $GLOBALS["defer"]; ?>></script> -->
-			
+
 			<!-- <script src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/libs/supplementr.js" <?php echo $GLOBALS["async"]; ?>></script> -->
 			<!-- <script src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/libs/cssbs.js" <?php echo $GLOBALS["async"]; ?>></script> --> <!-- @TODO: Check this is the updated css_browser_selector.js -->
 			<script <?php echo $GLOBALS["gumby_debug"]; ?> src="//cdnjs.cloudflare.com/ajax/libs/gumby/2.6.0/js/libs/gumby.min.js" <?php echo $GLOBALS["defer"]; ?>></script> <?php //@TODO: Change this to gumby.min.js and fix the "Uncaught TypeError: undefined is not a function" ?>
 			<script src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/main.js" <?php echo $GLOBALS["defer"]; ?>></script>
-			
+
 			<?php if ( 1==2 ) : //If page that uses DataTables ?>
 				<script src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.1/js/jquery.dataTables.min.js" <?php echo $GLOBALS["defer"]; ?>></script>
 			<?php endif; ?>
-			
+
 			<?php if ( 1==2 ) : //If page that uses Twitter Feed ?>
 				<script src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/libs/twitter.js" <?php echo $GLOBALS["defer"]; ?>></script>
 			<?php endif; ?>
-			
+
 			<?php if ( $GLOBALS["debug"] ) : ?>
 				<script src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/performance-timing.js" <?php echo $GLOBALS["async"]; ?>></script>
 			<?php endif; ?>
-			
-						
+
+
 			<script>
-				//Capture Print Intent
-				try { (function() {
-						var afterPrint = function() {
-							ga('send', 'event', 'Print (Intent)', document.location.pathname);
-							Gumby.log('Sending GA event: ' + 'Print (Intent)', document.location.pathname);
-						};
-						if (window.matchMedia) {
-							var mediaQueryList = window.matchMedia('print');
-							mediaQueryList.addListener(function(mql) {
-								if (!mql.matches)
-								afterPrint();
-							});
-						}
-						window.onafterprint = afterPrint;
-					}());
-				} catch(e) {}
+				//Pull query strings from URL
+				function getQueryStrings() {
+					queries = new Array();
+				    var q = document.URL.split('?')[1];
+				    if ( q != undefined ){
+				        q = q.split('&');
+				        for ( var i = 0; i < q.length; i++ ){
+				            hash = q[i].split('=');
+				            queries.push(hash[1]);
+				            queries[hash[0]] = hash[1];
+				        }
+					}
+				}
+
+				//Search query strings for the passed parameter
+				function GET(query) {
+					if ( typeof query === 'undefined' ) {
+						return queries;
+					}
+
+					if ( typeof queries[query] !== 'undefined' ) {
+						return queries[query];
+					} else if ( queries.hasOwnProperty(query) ) {
+						return query;
+					}
+					return false;
+				}
 			</script>
-				
-			<script type="text/javascript">
-				//Load the SDK asynchronously
-				(function(d, s, id) {
-					var js, fjs = d.getElementsByTagName(s)[0];
-					if (d.getElementById(id)) return;
-					js = d.createElement(s); js.id = id;
-					js.src = "//connect.facebook.net/en_GB/all.js";
-					fjs.parentNode.insertBefore(js, fjs);
-				}(document, 'script', 'facebook-jssdk'));
-			</script>
-			
-			
-			<!-- <script src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/libs/froogaloop.min.js" <?php echo $GLOBALS["defer"]; ?>></script> --><!-- @TODO: Only call this script if vimeoplayer exists! -->
-	        <script>
-	            if ( jQuery('.vimeoplayer').length ) {
-	                var player = new Array();
-	                jQuery('iframe.vimeoplayer').each(function(i){
-						var vimeoiframeClass = jQuery(this).attr('id');
-						player[i] = $f(vimeoiframeClass);
-						player[i].addEvent('ready', function() {
-					    	Gumby.log('player is ready');
-						    player[i].addEvent('play', onPlay);
-						    player[i].addEvent('pause', onPause);
-						    player[i].addEvent('seek', onSeek);
-						    player[i].addEvent('finish', onFinish);
-						    player[i].addEvent('playProgress', onPlayProgress);
-						});
-					});    
-				}
-				
-				function onPlay(id) {
-				    var videoTitle = id.replace(/-/g, ' ');
-				    ga('send', 'event', 'Videos', 'Play', videoTitle);
-				    Gumby.log('Sending GA event: ' + 'Videos', 'Play', videoTitle);
-				}
-				
-				function onPause(id) {
-				    var videoTitle = id.replace(/-/g, ' ');
-				    ga('send', 'event', 'Videos', 'Pause', videoTitle);
-				    Gumby.log('Sending GA event: ' + 'Videos', 'Pause', videoTitle);
-				}
-				
-				function onSeek(data, id) {
-				    var videoTitle = id.replace(/-/g, ' ');
-				    ga('send', 'event', 'Videos', 'Seek', videoTitle);
-				    Gumby.log('Sending GA event: ' + 'Videos', 'Seek', videoTitle + ' [to: ' + data.seconds + ']');
-				}
-				
-				function onFinish(id) {
-					var videoTitle = id.replace(/-/g, ' ');
-					ga('send', 'event', 'Videos', 'Finished', videoTitle);
-					Gumby.log('Sending GA event: ' + 'Videos', 'Finished', videoTitle);
-				}
-				
-				function onPlayProgress(data, id) {
-					//Gumby.log(data.seconds + 's played');
-				}
-	        </script>
-		
+
 			<script>
 				//Check for Youtube Videos
 				if ( jQuery('.youtubeplayer').length ) {
@@ -184,7 +136,7 @@
 					var firstScriptTag = document.getElementsByTagName('script')[0];
 					firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 				}
-		
+
 				function onYouTubeIframeAPIReady(e) {
 					jQuery('iframe.youtubeplayer').each(function(i){
 						var youtubeiframeClass = jQuery(this).attr('id');
@@ -196,7 +148,7 @@
 						});
 					});
 				}
-		
+
 				//Track Youtube Video Events
 				var pauseFlag = false;
 				function onPlayerReady(e) {
@@ -206,22 +158,19 @@
 				    if (e.data == YT.PlayerState.PLAYING) {
 				        var videoTitle = e['target']['a']['id'].replace(/-/g, ' ');
 				        ga('send', 'event', 'Videos', 'Play', videoTitle);
-				        Gumby.log('Sending GA event: ' + 'Videos', 'Play', videoTitle);
 				        pauseFlag = true;
 				    }
 				    if (e.data == YT.PlayerState.ENDED) {
 				        var videoTitle = e['target']['a']['id'].replace(/-/g, ' ');
-				        ga('send', 'event', 'Videos', 'Finished', videoTitle);
-				        Gumby.log('Sending GA event: ' + 'Videos', 'Finished', videoTitle);
+				        ga('send', 'event', 'Videos', 'Finished', videoTitle, {'nonInteraction': 1});
 				    } else if (e.data == YT.PlayerState.PAUSED && pauseFlag) {
 				        var videoTitle = e['target']['a']['id'].replace(/-/g, ' ');
 				        ga('send', 'event', 'Videos', 'Pause', videoTitle);
-				        Gumby.log('Sending GA event: ' + 'Videos', 'Pause', videoTitle);
 				        pauseFlag = false;
 				    }
 				}
 			</script>
-		
+
 		</div><!--/fullbodywrapper-->
 	</body>
 </html>

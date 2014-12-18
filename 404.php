@@ -1,7 +1,7 @@
 <?php include_once('header.php'); ?>
 
 <div class="row">
-	
+
 	<div class="eleven columns">
 		<div id="bcrumbs">
 			<nav class="breadcrumbs">
@@ -14,20 +14,18 @@
 			<?php //get_search_form(); echo '<script>document.getElementById(\'s\') && document.getElementById(\'s\').focus();</script>'.PHP_EOL; ?>
 		</article>
 	</div><!--/columns-->
-	
+
 	<div class="four columns push_one">
 		<?php include_once('sidebar.php'); ?>
 	</div><!--/columns-->
-	
+
 </div><!--/row-->
 
 <script>
 	if ( document.referrer.length ) {
 		ga('send', 'event', '404 Not Found', 'Request: ' + document.URL, 'Referrer: ' + document.referrer);
-		Gumby.log('Sending GA event: ' + '404 Not Found', 'Request: ' + document.URL, 'Referrer: ' + document.referrer);
 	} else {
 		ga('send', 'event', '404 Not Found', 'Request: ' + document.URL, 'No Referrer or Unknown');
-		Gumby.log('Sending GA event: ' + '404 Not Found', 'Request: ' + document.URL, 'No Referrer or Unknown');
 	}
 </script>
 

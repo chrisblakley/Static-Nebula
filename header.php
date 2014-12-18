@@ -9,29 +9,29 @@
 	<head>
 		<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1' />
 		<meta charset="utf-8">
-		
+
 		<title><?php echo $pageTitle = 'Home' . ' - ' . $GLOBALS['bloginfo']['name']; ?></title>
-		
+
 		<meta name="description" content="<?php echo $GLOBALS['meta']['description'] = 'Web Development Template'; ?>" />
 		<meta name="keywords" content="<?php echo $GLOBALS['meta']['keywords'] = '#'; ?>" />
 		<meta name="author" content="humans.txt" />
-		
+
 		<meta name="HandheldFriendly" content="True">
 		<meta name="MobileOptimized" content="320">
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
-		
+
 		<link rel="profile" href="http://gmpg.org/xfn/11" />
-		
+
 		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,700" />
 		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css" />
 		<link rel="stylesheet" href="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/css/gumby.css" />
 		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css" />
 		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jQuery.mmenu/4.3.2/css/jquery.mmenu.all.min.css" /> <!-- @TODO: Remove if not using mmenu! -->
 		<link rel="stylesheet" href="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/style.css" />
-        		
+
 		<link rel="icon" href="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/images/favicon.ico">
 		<link rel="apple-touch-icon" href="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/images/apple-touch-icon.png"> <!-- @TODO: Create an apple touch icon 129x129px. -->
-		
+
 		<!-- Open Graph Metadata -->
 		<?php //Check that all Open Graph data is working: https://developers.facebook.com/tools/debug ?>
 		<meta property="og:type" content="business.business" />
@@ -56,44 +56,44 @@
 			$GLOBALS['info']['full_address'] = $GLOBALS['info']['street_address'] . ', ' . $GLOBALS['info']['locality'] . ', ' . $GLOBALS['info']['region'] . ' ' . $GLOBALS['info']['postal_code'];
 			$GLOBALS['info']['enc_address'] = str_replace(array(' ', ','), array('+', ''), $GLOBALS['info']['full_address']);
 		?>
-		
+
 		<?php //Business hours of operation. Times should be in the format "5:30 pm" or "17:30". ?>
 		<meta property="business:hours:day" content="sunday" />
 		<meta property="business:hours:start" content="11:00 am" />
 		<meta property="business:hours:end" content="6:00 pm" />
-		
+
 		<meta property="business:hours:day" content="monday" />
 		<meta property="business:hours:start" content="10:00 am" />
 		<meta property="business:hours:end" content="9:30 pm" />
-		
+
 		<meta property="business:hours:day" content="tuesday" />
 		<meta property="business:hours:start" content="10:00 am" />
 		<meta property="business:hours:end" content="9:30 pm" />
-		
+
 		<meta property="business:hours:day" content="wednesday" />
 		<meta property="business:hours:start" content="10:00 am" />
 		<meta property="business:hours:end" content="9:30 pm" />
-		
+
 		<meta property="business:hours:day" content="thursday" />
 		<meta property="business:hours:start" content="10:00 am" />
 		<meta property="business:hours:end" content="9:30 pm" />
-		
+
 		<meta property="business:hours:day" content="friday" />
 		<meta property="business:hours:start" content="10:00 am" />
 		<meta property="business:hours:end" content="9:30 pm" />
-		
+
 		<meta property="business:hours:day" content="saturday" />
 		<meta property="business:hours:start" content="10:00 am" />
 		<meta property="business:hours:end" content="9:30 pm" />
-		
-		
+
+
 		<!-- Facebook Metadata -->
 		<?php $GLOBALS['social']['facebook_url'] = 'https://www.facebook.com/PinckneyHugo'; //@TODO: Enter the URL of the Facebook page here. ?>
 		<?php $GLOBALS['social']['facebook_app_id'] = '0000000000000'; //@TODO: Enter Facebook App ID. Instructions: http://smashballoon.com/custom-facebook-feed/access-token/ ?>
 		<?php $GLOBALS['social']['facebook_access_token'] = '00000000000000|00000000000000000000000000'; //@TODO: Enter Facebook Access Token. This only stored in PHP for reference. Do NOT share or store in browser-facing code. ?>
 		<meta property="fb:page_id" content="" /><!-- @TODO: Remove this line if not related to a FB Page. -->
 		<meta property="fb:admins" content="" /><!-- @TODO: Comma separated IDs of FB admins. Ex: "1234,2345,3456" -->
-				
+
 		<!-- Google+ Metadata -->
 		<?php $GLOBALS['social']['google_plus_url'] = ''; //@TODO: Enter the URL of the Google+ page here. ?>
 		<meta itemprop="name" content="<?php echo $GLOBALS['bloginfo']['name']; ?>" />
@@ -113,18 +113,18 @@
 		<meta name="msapplication-square150x150logo" content="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/images/square.png" /><!-- 150x150px -->
 		<meta name="msapplication-wide310x150logo" content="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/images/wide.png" /><!-- 310x150px -->
 		<meta name="msapplication-square310x310logo" content="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/images/large.png" /><!-- 310x310px -->
-		
+
 		<script>
 			clientinfo = [];
 			clientinfo["remote_addr"] = "<?php $_SERVER['REMOTE_ADDR']; ?>";
-			
+
 			bloginfo = [];
 			bloginfo["name"] = "<?php echo $GLOBALS['bloginfo']['name']; ?>";
 			bloginfo["template_directory"] = "<?php echo $GLOBALS['bloginfo']['template_directory']; ?>";
 			bloginfo["stylesheet_url"] = "<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/style.css";
 			bloginfo["home_url"] = "<?php echo $GLOBALS['bloginfo']['home_url']; ?>";
 			bloginfo["admin_email"] = "<?php echo $GLOBALS['bloginfo']['admin_email']; ?>";
-	
+
 			social = [];
 			social['facebook_url'] = "<?php echo $GLOBALS['social']['facebook_url']; ?>";
 			social['facebook_app_id'] = "<?php echo $GLOBALS['social']['facebook_app_id']; ?>";
@@ -134,34 +134,34 @@
 			social['youtube_url'] = "<?php echo $GLOBALS['social']['youtube_url']; ?>";
 			social['instagram_url'] = "<?php echo $GLOBALS['social']['instagram_url']; ?>";
 		</script>
-		
+
 		<!-- Grab Google CDN's jQuery, fall back to local if offline -->
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<script>window.jQuery || document.write('<script src="js/libs/jquery-1.10.1.min.js"><\/script>')</script>
-		
-		<!-- <script type='text/javascript' src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/libs/modernizr.custom.64172.js"></script> -->
-		<script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.min.js"></script>
-		
+
+		<script type='text/javascript' src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/js/libs/modernizr.custom.64172.js"></script>
+		<?php //<script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.min.js"></script> ?>
+
 		<?php if ( 1==2 ) : //If page that uses Google Maps ?>
 			<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=weather"></script>
 		<?php endif; ?>
-		
+
 		<!--[if lt IE 9]>
 			<script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
 			<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
 			<script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
-		
+
 		<script> //Universal Analytics
 			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 				(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 				m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-		
-			ga('create', '<?php echo $GLOBALS['ga'] = 'UA-000000-1'; ?>', 'auto'); <?php //@TODO: Change Tracking ID here! ?>
+
+			ga('create', '<?php echo $GLOBALS['ga']; ?>', 'auto'); <?php //@TODO: Change Tracking ID in functions.php! ?>
 			ga('send', 'pageview');
 		</script>
-		
+
 		<script type="text/javascript">
 			window.addEventListener('error', function(e) {
 				if ( e.lineno != 0 ) {
@@ -169,22 +169,22 @@
 					ga('send', 'exception', e.message, false);
 				}
 			});
-		</script>		
+		</script>
 	</head>
-	
+
 	<body>
 		<div id="fullbodywrapper">
-		
+
 		<div id="fb-root"></div>
-		
+
 		<noscript>
 			<iframe class="hidden" src="<?php echo $GLOBALS['bloginfo']['template_directory']; ?>/includes/no-js.php?h=<?php echo $GLOBALS['bloginfo']['home_url']; ?>&p=<?php echo $GLOBALS['bloginfo']['permalink']; ?>&t=<?php echo $pageTitle; ?>" width="0" height="0" style="display:none;position:absolute;"></iframe>
 		</noscript>
-		
+
 		<div id="topbarcon">
 			<div class="row mobilenavcon">
 				<div class="sixteen columns clearfix">
-					
+
 					<a class="alignleft" href="#mobilenav"><i class="icon-menu"></i></a>
 					<nav id="mobilenav">
 						<ul class="menu">
@@ -224,7 +224,7 @@
 							</li>
 						</ul>
 					</nav><!--/mobilenav-->
-					
+
 					<a class="alignright" href="#mobilecontact"><i class="icon-users"></i></a>
 					<nav id="mobilecontact" class="unhideonload hidden">
 						<ul>
@@ -239,7 +239,7 @@
 				    		</li>
 				    	</ul>
 					</nav><!--/mobilecontact-->
-					
+
 				</div><!--/columns-->
 			</div><!--/row-->
 		</div><!--/topbarcon-->
@@ -283,7 +283,7 @@
 				</nav>
 			</div><!--/columns-->
 		</div><!--/row-->
-		
+
 		<div id="logonavcon" class="row">
 			<div class="six columns">
 				<?php
@@ -335,7 +335,7 @@
 				</nav>
         	</div><!--/columns-->
 		</div><!--/row-->
-		
+
 		<div class="container fixedbar" style="position: fixed; top: 0; left: 0; z-index: 9999;">
 			<div class="row">
 				<div class="four columns">

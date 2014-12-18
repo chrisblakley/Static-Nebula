@@ -1,11 +1,3 @@
-/*
-	Theme Name: Static Nebula
-	Author: Pinckney Hugo Group
-	Author URI: http://www.pinckneyhugo.com
-	Description: The WP Nebula is a springboard WordPress theme for developers. Inspired by the HTML5 Boilerplate, this theme creates the framework for development. Like other WordPress startup themes, it has custom functionality built-in (like shortcodes, styles, and JS/PHP functions), but unlike other themes the WP Nebula is not meant for the end-user.
-	Version: 1.0
-*/
-
 /* ==========================================================================
    Global Variables
    ========================================================================== */
@@ -143,7 +135,7 @@ table {table-layout: fixed; border-collapse: collapse; border-spacing: 0; /* Set
 .nebulashadow.hovering { height: 35px; background: url('images/shadow-hovering.png') no-repeat top center; background-size: contain;}
 .nebulashadow.raising-left {height: 24px; background: url('images/shadow-raising-left.png') no-repeat top center; background-size: contain;}
 .nebulashadow.raising-right {height: 24px; background: url('images/shadow-raising-right.png') no-repeat top center; background-size: contain;}
-	
+
 .nebulaframe {position: relative; padding: 5px; background: #fff; border: 1px solid #aaa;}
 	.nebulaframe:after, .nebulaframe.floating:after {content: ''; position: absolute; left: 0; bottom: -24px; width: 100%; height: 24px; background: url('images/shadow-floating.png') no-repeat top center; background-size: contain; -webkit-transition: all 0.5s ease 0s; -moz-transition: all 0.5s ease 0s; -o-transition: all 0.5s ease 0s; transition: all 0.5s ease 0s;}
 .nebulaframe.bulging:after {content: ''; position: absolute; bottom: -24px; width: 100%; height: 24px; background: url('images/shadow-bulging.png') no-repeat top center; background-size: contain;}
@@ -152,7 +144,7 @@ table {table-layout: fixed; border-collapse: collapse; border-spacing: 0; /* Set
 .nebulaframe.hovering:after {content: ''; position: absolute; bottom: -35px; width: 100%; height: 35px; background: url('images/shadow-hovering.png') no-repeat top center; background-size: contain;}
 .nebulaframe.raising-left:after {content: ''; position: absolute; bottom: -24px; width: 100%; height: 24px; background: url('images/shadow-raising-left.png') no-repeat top center; background-size: contain;}
 .nebulaframe.raising-right:after {content: ''; position: absolute; bottom: -24px; width: 100%; height: 24px; background: url('images/shadow-raising-right.png') no-repeat top center; background-size: contain;}
-	
+
 	/* .nebulaframe.animate:hover:after {background-position-y: -24px;} */
 
 code {font-family: monospace; background: #f6f6f6; border: 1px solid #ccc; padding: 1px 3px; color: #222;}
@@ -170,13 +162,13 @@ code {font-family: monospace; background: #f6f6f6; border: 1px solid #ccc; paddi
 	#map_canvas {width: 100%; height: 100%;}
 	.googlemapcon a,
 	.googlemapcon i {-webkit-transition: all 0.25s ease 0s; -moz-transition: all 0.25s ease 0s; -o-transition: all 0.25s ease 0s; transition: all 0.25s ease 0s;}
-	
+
 	.mapgeolocation-icon.error {color: red;}
-	
+
 	.maprefresh {overflow: hidden; white-space: nowrap;}
 		.maprefresh.timeout {color: #aaa; cursor: default;}
 		.maprefresh-icon.success {color: green;}
-		
+
 	.mapweather-icon.inactive,
 	.maptraffic-icon.inactive,
 	.maprefresh-icon.inactive,
@@ -187,7 +179,7 @@ code {font-family: monospace; background: #f6f6f6; border: 1px solid #ccc; paddi
 	.facebook-connect-con a {color: #3b5998;}
 		.facebook-connect-con a:hover,
 		.facebook-connect-con a.hover {color: #8b9dc3;}
-		
+
 
 /* ==========================================================================
    Specific Gumby feature modifications
@@ -208,13 +200,13 @@ i[class^="icon-"], i[class*=" icon-"] {margin: 0; min-width: 0;}
    Author's custom styles
    ========================================================================== */
 
-/* 
-@TODO: Find/Replace the following HTML colors: 
+/*
+@TODO: Find/Replace the following HTML colors:
 	lightgrey
 	grey
 	#0098D7 (Primary Brand Color)
 	#95D600 (Secondary Brand Color)
-	
+
 Also be sure to find the other @TODO: items within the stylesheet.
 */
 
@@ -293,7 +285,7 @@ li.nebula-search input, input.nebula-search {max-width: 15px; padding: 1px 6px; 
 					nav#primarynav ul li.menu-item a:hover,
 					nav#primarynav ul li.menu-item a.hover {}
 				nav#primarynav ul li.menu-item ul.sub-menu {position: absolute; top: 15px; left: -9999px; max-width: 250px; margin: 0; padding: 5px 0; opacity: 0; -webkit-transition: top 0.25s ease 0s, opacity 0.25s ease 0s; -moz-transition: top 0.25s ease 0s, opacity 0.25s ease 0s; -o-transition: top 0.25s ease 0s, opacity 0.25s ease 0s; transition: top 0.25s ease 0s, opacity 0.25s ease 0s; background: lightgrey; background: linear-gradient(to bottom, white, gainsboro); z-index: 1001; border: 1px solid grey;}
-				.no-js nav#primarynav ul li.menu-item ul.sub-menu {width: 400px;}	
+				.no-js nav#primarynav ul li.menu-item ul.sub-menu {width: 400px;}
 					nav#primarynav ul li.menu-item ul.sub-menu li {display: block; margin: 0;}
 						nav#primarynav ul li.menu-item ul.sub-menu li a {display: block; padding: 5px;}
 							nav#primarynav ul li.menu-item ul.sub-menu li a:hover,
@@ -390,7 +382,7 @@ div.wp-pagination {float: right; margin-bottom: 20px;}
 			.author-phonenumber {white-space: nowrap;}
 
 /* Comments */
-/* 
+/*
 	@TODO: Soft validation with JS to make submit greyed out/disabled until textarea has value.
 	@TODO: Style textarea (maybe animate a min height when focused)
 	@TODO: Style comments themselves (similar to phg intranet)
@@ -398,13 +390,13 @@ div.wp-pagination {float: right; margin-bottom: 20px;}
 .commentcon {padding: 0;}
 	.commentcon.closed {height: 0; overflow: hidden;}
 	.commentlist {}
-	
+
 	.comment-opencloseicon {-webkit-transition: all 0.25s ease 0s; -moz-transition: all 0.25s ease 0s; -o-transition: all 0.25s ease 0s; transition: all 0.25s ease 0s;}
 		.comment-opencloseicon.closed {transform:rotate(90deg); -webkit-transform:rotate(90deg); -ms-transform:rotate(90deg);}
-	
+
 	li.comment {list-style: none; padding: 10px 0;}
 		div.user-avatar {float: left; margin-right: 10px;}
-		
+
 		li.comment ul.children {margin: 0 0 0 60px; padding-left: 10px; border-left: 1px solid #95d600; border-left: 1px solid var(--secondary-color);}
 		li.comment div.comment-author {display: inline;}
 			li.comment.bypostauthor > div.comment-body div.comment-author:after {content: 'Author'; font-size: 9px; color: #fff; padding: 0 2px; background: #0098d7; background: var(--primary-color); border-radius: 12px;}
@@ -417,7 +409,7 @@ div.wp-pagination {float: right; margin-bottom: 20px;}
 			li.comment p {margin: 0; font-size: 12px;}
 			li.comment .reply {margin-bottom: 3px;}
 				li.comment a.comment-reply-link {font-size: 10px;}
-			
+
 
 /* ==========================================================================
    Sidebar Area
@@ -589,9 +581,9 @@ div.copyright {padding-top: 10px; background: rgba(0,0,0,0.03); background: #009
 	#heroslidercon {height: 100px; overflow: hidden; background-size: cover;}
 		#heroslidercon h3 {font-size: 28px; line-height: 40px;}
 		#heroslidercon h4 {font-size: 16px; display: none !important;}
-	
+
 	.author-headshot {text-align: center;}
-	
+
 	.xoxo .search {display: none;}
 
 	/* Nebula Wordpress power footer navigation responsive style defaults */
@@ -622,13 +614,13 @@ div.copyright {padding-top: 10px; background: rgba(0,0,0,0.03); background: #009
 .column, .columns {outline: 1px solid lightgreen;}
 	.row {outline: 1px solid pink;}
 */
-	
+
 	.author-jobtitle {display: block;}
 	.author-contact {float: none; display: block;}
-	
+
 	.nebula-manage-edit {display: block; text-align: center;}
 	.post-modified {float: none; display: block; text-align: center;}
-	
+
 	li.comment div.comment-meta {display: block;}
 
 } /* End mobile landscape media query */
@@ -716,20 +708,6 @@ div.space {clear: both; display: block; overflow: hidden; visibility: hidden; wi
 
 
 /* Nebula Debug Classes */
-.nebula-php-error {font-size: 13px !important; width: 96% !important; margin: 10px auto !important; padding: 2px 10px !important; border-radius: 4px !important; box-shadow: 1px 1px 3px 0 rgba(0,0,0,0.05) !important;}
-	.nebula-php-error small {position: relative; top: -2px; font-size: 8px; cursor: help;}
-	.nebula-php-error.fatal-error {color: #000; background: rgba(153, 51, 51, 0.02);}
-		.nebula-php-error.fatal-error strong:first-of-type {color: rgb(153, 51, 51); cursor: help;}
-	.nebula-php-error.error {color: #333; background: rgba(204, 102, 51, 0.02);}
-		.nebula-php-error.error strong:first-of-type {color: rgb(204, 102, 51); cursor: help;}
-	.nebula-php-error.warning {color: #666; background: rgba(228, 199, 51, 0.02);}
-		.nebula-php-error.warning strong:first-of-type {color: rgb(228, 199, 51); cursor: help;}
-	.nebula-php-error.notice {color: #666; background: rgba(51, 102, 153, 0.02);}
-		.nebula-php-error.notice strong:first-of-type {color: rgb(51, 102, 153); cursor: help;}
-	.nebula-php-error.strict {color: #666; background: rgba(138, 169, 112, 0.02);}
-		.nebula-php-error.strict strong:first-of-type {color: rgb(138, 169, 112); cursor: help;}
-	.nebula-php-error.unknown {color: #666; background: rgba(102, 102, 102, 0.02);}
-		.nebula-php-error.unknown strong:first-of-type {color: rgb(102, 102, 102); cursor: help;}
 
 .border-red, .outline-red {outline: 1px solid red;}
 .border-orange, .outline-orange {outline: 1px solid orange;}
