@@ -11,8 +11,8 @@
 $GLOBALS['ga'] = ''; //@TODO "Analytics" 5: Change Google Analytics Tracking ID here!
 
 $GLOBALS['bloginfo']['name'] = 'Static Nebula';
-$GLOBALS['bloginfo']['home_url'] = 'http://remotelynk.com/'; //@TODO "Permalinks" 5: Change the root URL here. Be sure to update this variable after go-live!
-$GLOBALS['bloginfo']['template_directory'] = 'http://remotelynk.com'; //No trailing slash!
+$GLOBALS['bloginfo']['home_url'] = 'http://gearside.com/nebula/Static-Nebula-master/'; //@TODO "Permalinks" 5: Change the root URL here. Be sure to update this variable after go-live!
+$GLOBALS['bloginfo']['template_directory'] = 'http://gearside.com/nebula/Static-Nebula-master'; //No trailing slash!
 //$GLOBALS['bloginfo']['template_directory'] = rtrim($protocol . $_SERVER['HTTP_HOST'] . str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']), '/'); //@TODO: Replace this with nebula_url_components(); - Also need to figure out placement of this line since it would need nebula_utilities.php to work, but the end of THAT file needs THIS variable.
 $GLOBALS['bloginfo']['admin_email'] = 'chris@gearside.com';
 
